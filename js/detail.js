@@ -115,11 +115,18 @@ document.addEventListener('DOMContentLoaded', () => {
 	});
 
 	filtersBtn.addEventListener('click', (e) => {
+		const reviews = JSON.parse(window.localStorage.getItem(id));
 		const target = e.target;
 		if (target.tagName !== 'P') return;
 
 		const selectedGender = target.getAttribute('data-gender');
-		const filteredReviews = reviews.filter((r) => r.gender == selectedGender );
+		const filteredReviews = reviews.filter((r) => {
+			if (selectedGender === 'male' || selectedGender === 'female') {
+				return r.gender === selectedGender;
+			} else {
+				return true;
+			}
+		});
 		renderReview(filteredReviews[0]);
 	});
 
