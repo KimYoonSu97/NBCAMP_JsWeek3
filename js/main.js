@@ -6,28 +6,12 @@ import { toDetail } from "./home-to-detail.js"; //상세페이지 이동기능
 const makeMovieList = async () => {
   const data = await getTopRatedMovies();
 
-  //div card-container (하단부분)
-  data.forEach((movie) => {
-    document.querySelector(
-      ".card-container"
-    ).innerHTML += `<div data-id="${movie.id}" class="movie-card" onclick="movieDetail(${movie.id})">
-    <div class="card-poster">
-      <img
-        src="https://image.tmdb.org/t/p/w500/${movie.poster_path}"
-        alt="name poster"
-      />
-    </div>
-    <div class="card-title">${movie.title}</div>
-    <div class="card-rating">${movie.vote_average}</div>
-  </div>`;
-  });
-
   //slide (상단부분)
   data.forEach((movie, index) => {
     if (index <= 2) {
-      document.querySelector(
-        ".slide-inner"
-      ).innerHTML += `<div data-id="${movie.id}" class="slide" onclick="movieDetail(${movie.id})">
+      const slideInner = document.querySelector( ".slide-inner")
+      slideInner.innerHTML += 
+      `<div data-id="${movie.id}" class="slide" onclick="movieDetail(${movie.id})">
         <div class="slide-num">
           <div class="slide-img">
             <img
@@ -44,10 +28,28 @@ const makeMovieList = async () => {
     }
   });
 
+  //div card-container (하단부분)
+  data.forEach((movie) => {
+    const cardContainer = document.querySelector(".card-container")
+    cardContainer.innerHTML += 
+    `<div data-id="${movie.id}" class="movie-card" onclick="movieDetail(${movie.id})">
+      <div class="card-poster">
+        <img
+          src="https://image.tmdb.org/t/p/w500/${movie.poster_path}"
+          alt="name poster"
+        />
+      </div>
+      <div class="card-title">${movie.title}</div>
+      <div class="card-rating">${movie.vote_average}</div>
+    </div>`;
+  });
+
+
   slide();
   toDetail();
 };
 
 makeMovieList();
+
 //검색기능
 //정렬기능
