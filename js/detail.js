@@ -92,6 +92,7 @@ document.addEventListener("DOMContentLoaded", () => {
       writer: document.querySelector("#review-writer").value,
       comment: document.querySelector("#review-comment").value,
       password: document.querySelector("#review-password").value,
+      gender: document.querySelector("input[name='gender']:checked").value,
     };
 
     let reviewsFromDB = JSON.parse(localStorage.getItem("id"));
