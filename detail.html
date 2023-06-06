@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Detail-Page</title>
+    <link rel="stylesheet" href="./reset.css" />
+    <link rel="stylesheet" href="https://use.typekit.net/xbb5tyl.css" />
+    <link rel="stylesheet" href="./css/detail.css" />
+    <script defer src="./detail_fetch.js"></script>
+  </head>
+  <body>
+    <!-- HEADER -->
+    <header>
+      <div class="header">
+        <div class="logo-box">
+          <img src="" alt="로고 이미지" />
+        </div>
+      </div>
+    </header>
+
+    <!-- movie Detail -->
+    <section id="detail-area" class="detail-area">
+      <div class="movie-title">Movie Name</div>
+      <div class="movie-detail">
+        <div class="movie-poster">
+          <img src="/NBCAMP_JsWeek3/src/29N43AR8SP_1.jpg" alt="포스터" />
+        </div>
+        <div class="movie-info">
+          <div class="popular">
+            <p class="category">Popularity</p>
+            <p class="value">00000</p>
+          </div>
+          <div class="release">
+            <p class="category">Release</p>
+            <p class="value">2023-05-24</p>
+          </div>
+          <div class="production">
+            <p class="category">Production</p>
+            <p class="value">walt disney</p>
+          </div>
+          <div class="overview">
+            The youngest of King Triton’s daughters, and the most defiant, Ariel
+            longs to find out more about the world beyond the sea, and while
+            visiting the surface, falls for the dashing Prince Eric. With
+            mermaids forbidden to interact with humans, Ariel makes a deal with
+            the evil sea witch, Ursula, which gives her a chance to experience
+            life on land, but ultimately places her life – and her father’s
+            crown – in jeopardy.
+          </div>
+          <div id="detail-genre" class="genre">
+            <!-- <div>family</div>
+            <div>family</div>
+            <div>family</div>
+            <div>family</div> -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- movie detail tag-line -->
+    <section class="tag-line">
+      <p>-</p>
+      <div class="tag-line-text" style="background-image: url()"></div>
+    </section>
+
+    <!-- movie detail production and box office success -->
+    <section class="money-info">
+      <div class="title">
+        <p>production and box office success</p>
+      </div>
+      <table class="money-table">
+        <tr>
+          <!-- 첫번째 줄 시작 -->
+          <td class="category">Budget</td>
+          <td class="info">250000000</td>
+          <td class="category">Revenue</td>
+          <td class="info">325800000</td>
+        </tr>
+        <!-- 첫번째 줄 끝 -->
+        <tr>
+          <!-- 두번째 줄 시작 -->
+          <td class="category">Revenue</td>
+          <td class="info">6.08</td>
+          <td class="category">Vote</td>
+          <td class="info">454</td>
+        </tr>
+        <!-- 두번째 줄 끝 -->
+      </table>
+    </section>
+
+    <!-- comment -->
+    <section class="comment">
+      <div class="title-area">
+        <div class="title">Comment</div>
+        <div class="filters">
+          <p>All</p>
+          <p>Male</p>
+          <p>Female</p>
+        </div>
+      </div>
+      <!-- form -->
+      <form action="//" name="comment">
+        <div class="select">
+          <input type="text" placeholder="Your name" />
+          <input type="password" placeholder="Password" />
+          <button>Male</button>
+          <button>Female</button>
+        </div>
+        <div class="comment-submit">
+          <input
+            class="input-field"
+            type="text"
+            placeholder="Leave a comment"
+          />
+          <button>submit</button>
+        </div>
+      </form>
+
+      <!-- comment print -->
+      <div class="comment-print">
+        <div class="comment-card">
+          <div class="info">
+            <div class="name">Yoonsu</div>
+            <div class="gender">Male</div>
+          </div>
+          <div class="print">
+            넘넘 재밋어용 ㅠㅠㅠ 오백번 보고싶어요 ㅠㅠ넘넘 재밋어용 ㅠㅠㅠ
+            오백번 보고싶어요 ㅠㅠ넘넘 재밋어용 ㅠㅠㅠ 오백번 보고싶어요
+            ㅠㅠ넘넘 재밋어용 ㅠㅠㅠ 오백번 보고싶어요 ㅠㅠ넘넘 재밋어용 ㅠㅠㅠ
+            오백번 보고싶어요 ㅠㅠ
+          </div>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>

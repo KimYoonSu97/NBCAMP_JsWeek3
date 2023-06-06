@@ -1,0 +1,197 @@
+* {
+  box-sizing: border-box;
+  font-family: "sofia-pro", sans-serif;
+  font-weight: 400;
+  color: white;
+}
+
+html {
+  background-color: black;
+}
+
+.header {
+  height: 160px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.header .logo-box {
+  width: 270px;
+  height: 80px;
+  background-color: royalblue;
+}
+
+.movie-title {
+  margin: 0px auto 37px;
+  text-align: center;
+  font-size: 80px;
+  font-weight: 700;
+}
+
+/* movie detail */
+
+.movie-detail {
+  width: 1084px;
+  display: flex;
+  margin: 0 auto;
+}
+
+.movie-detail .movie-poster {
+  width: 453px;
+  height: 640px;
+  border-radius: 40px;
+  overflow: hidden;
+}
+
+.movie-detail .movie-poster img {
+  width: 100%;
+}
+
+.movie-detail .movie-info {
+  margin-left: 50px;
+  width: 581px;
+}
+
+.movie-detail .movie-info .popular,
+.movie-detail .movie-info .release,
+.movie-detail .movie-info .production {
+  /* display: flex; */
+  margin-bottom: 30px;
+
+  /* height: 40px; */
+}
+.movie-info p {
+  display: inline;
+}
+
+.movie-detail .movie-info .category {
+  width: 120px;
+  font-size: 24px;
+  height: 35px;
+}
+.movie-detail .movie-info .value {
+  margin-left: 30px;
+  font-size: 24px;
+}
+
+.movie-detail .movie-info .overview {
+  font-size: 24px;
+}
+
+.movie-detail .movie-info .genre {
+  margin-top: 30px;
+  display: flex;
+}
+
+.movie-detail .movie-info .genre div {
+  margin-right: 20px;
+  padding: 12px 20px;
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 30px;
+}
+
+.tag-line {
+  margin: 76px 0;
+  font-size: 32px;
+  text-align: center;
+  position: relative;
+}
+
+.tag-line p {
+  position: absolute;
+  z-index: 9;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.tag-line .tag-line-text {
+  margin: 0 auto;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  height: 300px;
+  /* background: linear-gradient();
+   */
+  filter: opacity(0.7);
+}
+
+/* money info section  */
+
+.money-info .title {
+  text-align: center;
+  font-size: 32px;
+  font-weight: 700;
+}
+
+.money-info .money-table {
+  margin: 0 auto;
+  width: 600px;
+  height: 120px;
+  font-size: 24px;
+}
+
+.money-info .money-table .category {
+  font-weight: 700;
+}
+
+/* comment */
+
+.comment {
+  margin: 0 auto;
+  margin-top: 62px;
+}
+
+.comment .title-area {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
+.comment .title {
+  font-size: 80px;
+}
+
+.comment .filters {
+  display: flex;
+}
+.comment .filters p {
+  margin-left: 30px;
+  color: rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+}
+.comment .filters p:hover {
+  color: white;
+}
+
+.commnet-print {
+  margin: 0 auto;
+}
+
+.comment-print .comment-card {
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  width: 1090px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid white;
+}
+
+.comment-print .comment-card .info {
+}
+
+.comment-print .comment-card .info .name {
+  font-size: 24px;
+  margin-bottom: 5px;
+}
+
+.comment-print .comment-card .info .gender {
+  font-size: 18px;
+}
+
+.comment-print .comment-card .print {
+  font-size: 24px;
+  margin-left: 30px;
+  width: 890px;
+}
