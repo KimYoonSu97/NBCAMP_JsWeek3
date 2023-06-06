@@ -81,17 +81,18 @@ function movieDetail() {
 
 movieDetail();
 
+// event listener
 document.addEventListener("DOMContentLoaded", () => {
   const reviewRegisterBtn = document.querySelector("#review-register-btn");
 
-  reviewRegisterBtn.addEventListener("click", () => {
-    const createReview = () => {
-      let newReview = {
-        writer: document.querySelector("#review-writer").value,
-        comment: document.querySelector("#review-comment").value,
-        password: document.querySelector("#review-password").value,
-      };
-
+  reviewRegisterBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    let newReview = {
+      writer: document.querySelector("#review-writer").value,
+      comment: document.querySelector("#review-comment").value,
+      password: document.querySelector("#review-password").value,
+      gender: document.querySelector("input[name='gender']:checked").value,
+    };
       if (newReview.writer.trim() === "") {
         alert("Please write your name");
       } else if (newReview.password.trim() === "") {
@@ -101,29 +102,22 @@ document.addEventListener("DOMContentLoaded", () => {
       } else if (newReview.comment.trim() === "") {
         alert("Please write comment");
       } else {
-        let reviewsFromDB = JSON.parse(localStorage.getItem("id"));
-        let reviews = reviewsFromDB
-          ? [...reviewsFromDB, newReview]
-          : [newReview];
+      let reviewsFromDB = JSON.parse(localStorage.getItem("id"));
+    let reviews = reviewsFromDB ? [...reviewsFromDB, newReview] : [newReview];
 
-        window.localStorage.setItem(id, JSON.stringify(reviews));
-      }
-    };
+    window.localStorage.setItem(id, JSON.stringify(reviews));
+    showReviews();
 
-    // 댓글 입력 유효성 검사
-    // 1. 이름 -> 비번 -> 비번자리수 -> 댓글 순 검사 후 모두 확인되면 그떄 리뷰 작성 실행
-
-    createReview();
   });
 
   const renderReview = (reviewData) => {
-    const { writer, comment } = reviewData;
+    const { writer, comment, gender } = reviewData;
     const reviewContainer = document.querySelector(".comment-print");
 
     let tempHtml = `<div class="comment-card">
                       <div class="info">
                         <div class="name">${writer}</div>
-                        <div class="gender">Male</div>
+                        <div class="gender">${gender}</div>
                       </div>
                       <div class="print">
                         ${comment}
@@ -134,12 +128,13 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   const showReviews = () => {
-    // 1. localStorage에서 reviews를 가져온다.
     const reviews = JSON.parse(window.localStorage.getItem(id));
+    if (!reviews) return;
 
     reviews.forEach((review) => {
       renderReview(review);
     });
   };
+
   showReviews();
 });
