@@ -23,9 +23,11 @@ let moneyTable = document.querySelector(".money-table");
 let moneyTableInfo = moneyTable.querySelectorAll(".info");
 // console.log(moneyTableInfo);
 
+let id;
+
 function movieDetail() {
   const params = new URLSearchParams(window.location.search);
-  const id = params.get("id");
+  id = params.get("id");
 
   fetch(`https://api.themoviedb.org/3/movie/${id}`, options)
     .then((response) => response.json())
@@ -93,7 +95,7 @@ document.addEventListener("DOMContentLoaded", () => {
       let reviewsFromDB = JSON.parse(localStorage.getItem("id"));
       let reviews = reviewsFromDB ? [...reviewsFromDB, newReview] : [newReview];
 
-      window.localStorage.setItem("id", JSON.stringify(reviews));
+      window.localStorage.setItem(id, JSON.stringify(reviews));
     };
     createReview();
   });
@@ -111,12 +113,13 @@ document.addEventListener("DOMContentLoaded", () => {
                         ${comment}
                       </div>
                     </div>`;
+    reviewContainer.innerHTML = "";
     reviewContainer.insertAdjacentHTML("beforeend", tempHtml);
   };
 
   const showReviews = () => {
     // 1. localStorage에서 reviews를 가져온다.
-    const reviews = JSON.parse(window.localStorage.getItem("id"));
+    const reviews = JSON.parse(window.localStorage.getItem(id));
 
     reviews.forEach((review) => {
       renderReview(review);
