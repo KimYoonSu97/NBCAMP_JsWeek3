@@ -3,6 +3,7 @@ import { slide } from "./slide.js"; //상단부 슬라이드 동작기능
 import { toDetail } from "./home-to-detail.js"; //상세페이지 이동기능
 const data = await getTopRatedMovies();
 //데이터 화면에 출력하기
+
 const makeMovieList = (data) => {
   //div card-container (하단부분)
   data.forEach((movie) => {
