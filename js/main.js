@@ -5,13 +5,13 @@ import { toDetail } from "./home-to-detail.js"; //상세페이지 이동기능
 //데이터 화면에 출력하기
 const makeMovieList = async () => {
   const data = await getTopRatedMovies();
+  let sortedByVote = data.sort((a, b) => b.vote_average - a.vote_average); // 평점순으로 보여주기
 
   //slide (상단부분)
-  data.forEach((movie, index) => {
+  sortedByVote.forEach((movie, index) => {
     if (index <= 2) {
-      const slideInner = document.querySelector( ".slide-inner")
-      slideInner.innerHTML += 
-      `<div data-id="${movie.id}" class="slide" onclick="movieDetail(${movie.id})">
+      const slideInner = document.querySelector(".slide-inner");
+      slideInner.innerHTML += `<div data-id="${movie.id}" class="slide">
         <div class="slide-num">
           <div class="slide-img">
             <img
@@ -29,10 +29,9 @@ const makeMovieList = async () => {
   });
 
   //div card-container (하단부분)
-  data.forEach((movie) => {
-    const cardContainer = document.querySelector(".card-container")
-    cardContainer.innerHTML += 
-    `<div data-id="${movie.id}" class="movie-card" onclick="movieDetail(${movie.id})">
+  sortedByVote.forEach((movie) => {
+    const cardContainer = document.querySelector(".card-container");
+    cardContainer.innerHTML += `<div data-id="${movie.id}" class="movie-card">
       <div class="card-poster">
         <img
           src="https://image.tmdb.org/t/p/w500/${movie.poster_path}"
@@ -43,7 +42,6 @@ const makeMovieList = async () => {
       <div class="card-rating">${movie.vote_average}</div>
     </div>`;
   });
-
 
   slide();
   toDetail();

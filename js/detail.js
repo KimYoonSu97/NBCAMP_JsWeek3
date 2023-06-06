@@ -23,24 +23,19 @@ let moneyTable = document.querySelector(".money-table");
 let moneyTableInfo = moneyTable.querySelectorAll(".info");
 // console.log(moneyTableInfo);
 
-// 전역변수로 소환!
-let detailInfo;
-// 임의의 ID입니다.
-let id = 447277;
+function movieDetail() {
+  const params = new URLSearchParams(window.location.search);
+  const id = params.get("id");
 
-function movieDetail(id) {
   fetch(`https://api.themoviedb.org/3/movie/${id}`, options)
     .then((response) => response.json())
     .then((response) => {
-      detailInfo = response;
-
       let {
         title,
         vote_average: rating,
         vote_count: vote,
         overview,
         poster_path: imgSrc,
-        id,
         revenue,
         release_date,
         popularity,
@@ -48,7 +43,7 @@ function movieDetail(id) {
         budget,
         production_companies: production,
         tagline,
-      } = detailInfo;
+      } = response;
       let productionName = production[0].name;
 
       let movieInfoVal = [popularity, release_date, productionName];
@@ -81,7 +76,8 @@ function movieDetail(id) {
     })
     .catch((err) => console.error(err));
 }
-movieDetail(id);
+
+movieDetail();
 
 document.addEventListener("DOMContentLoaded", () => {
   const reviewRegisterBtn = document.querySelector("#review-register-btn");
