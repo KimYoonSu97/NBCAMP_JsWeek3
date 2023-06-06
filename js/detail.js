@@ -85,20 +85,20 @@ movieDetail();
 document.addEventListener("DOMContentLoaded", () => {
   const reviewRegisterBtn = document.querySelector("#review-register-btn");
 
-  reviewRegisterBtn.addEventListener("click", () => {
-    const createReview = () => {
-      let newReview = {
-        writer: document.querySelector("#review-writer").value,
-        comment: document.querySelector("#review-comment").value,
-        password: document.querySelector("#review-password").value,
-      };
+  reviewRegisterBtn.addEventListener("click", (e) => {
+    e.preventDefault();
 
-      let reviewsFromDB = JSON.parse(localStorage.getItem("id"));
-      let reviews = reviewsFromDB ? [...reviewsFromDB, newReview] : [newReview];
-
-      window.localStorage.setItem(id, JSON.stringify(reviews));
+    let newReview = {
+      writer: document.querySelector("#review-writer").value,
+      comment: document.querySelector("#review-comment").value,
+      password: document.querySelector("#review-password").value,
     };
-    createReview();
+
+    let reviewsFromDB = JSON.parse(localStorage.getItem("id"));
+    let reviews = reviewsFromDB ? [...reviewsFromDB, newReview] : [newReview];
+
+    window.localStorage.setItem(id, JSON.stringify(reviews));
+    showReviews();
   });
 
   const renderReview = (reviewData) => {
