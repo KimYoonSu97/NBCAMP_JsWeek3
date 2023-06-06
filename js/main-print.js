@@ -1,9 +1,11 @@
 import { getTopRatedMovies } from "./fetch.js"; //영화데이터 fetch
 import { slide } from "./slide.js"; //상단부 슬라이드 동작기능
 import { toDetail } from "./home-to-detail.js"; //상세페이지 이동기능
+
 //데이터 화면에 출력하기
 const makeMovieList = async () => {
   const data = await getTopRatedMovies();
+
   //div card-container (하단부분)
   data.forEach((movie) => {
     document.querySelector(
@@ -19,6 +21,7 @@ const makeMovieList = async () => {
     <div class="card-rating">${movie.vote_average}</div>
   </div>`;
   });
+
   //slide (상단부분)
   data.forEach((movie, index) => {
     if (index <= 2) {
@@ -40,6 +43,7 @@ const makeMovieList = async () => {
       </div>`;
     }
   });
+
   slide();
   toDetail();
 };
