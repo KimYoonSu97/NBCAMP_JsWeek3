@@ -11,7 +11,7 @@ const makeMovieList = async () => {
     if (index <= 2) {
       const slideInner = document.querySelector( ".slide-inner")
       slideInner.innerHTML += 
-      `<div data-id="${movie.id}" class="slide" onclick="movieDetail(${movie.id})">
+      `<div data-id="${movie.id}" class="slide">
         <div class="slide-num">
           <div class="slide-img">
             <img
@@ -32,7 +32,7 @@ const makeMovieList = async () => {
   data.forEach((movie) => {
     const cardContainer = document.querySelector(".card-container")
     cardContainer.innerHTML += 
-    `<div data-id="${movie.id}" class="movie-card" onclick="movieDetail(${movie.id})">
+    `<div data-id="${movie.id}" class="movie-card">
       <div class="card-poster">
         <img
           src="https://image.tmdb.org/t/p/w500/${movie.poster_path}"
