@@ -92,11 +92,27 @@ document.addEventListener("DOMContentLoaded", () => {
         password: document.querySelector("#review-password").value,
       };
 
-      let reviewsFromDB = JSON.parse(localStorage.getItem("id"));
-      let reviews = reviewsFromDB ? [...reviewsFromDB, newReview] : [newReview];
+      if (newReview.writer.trim() === "") {
+        alert("Please write your name");
+      } else if (newReview.password.trim() === "") {
+        alert("Please enter the password within 8 characters.");
+      } else if (newReview.password.length.trim() > 8) {
+        alert("Please enter the password within 8 characters. It's too long");
+      } else if (newReview.comment.trim() === "") {
+        alert("Please write comment");
+      } else {
+        let reviewsFromDB = JSON.parse(localStorage.getItem("id"));
+        let reviews = reviewsFromDB
+          ? [...reviewsFromDB, newReview]
+          : [newReview];
 
-      window.localStorage.setItem(id, JSON.stringify(reviews));
+        window.localStorage.setItem(id, JSON.stringify(reviews));
+      }
     };
+
+    // 댓글 입력 유효성 검사
+    // 1. 이름 -> 비번 -> 비번자리수 -> 댓글 순 검사 후 모두 확인되면 그떄 리뷰 작성 실행
+
     createReview();
   });
 

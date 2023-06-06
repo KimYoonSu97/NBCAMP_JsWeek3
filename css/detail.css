@@ -5,6 +5,11 @@
   color: white;
 }
 
+button {
+  outline: none;
+  border: none;
+}
+
 input {
   outline: none;
   border: none;
@@ -145,7 +150,7 @@ html {
 /* comment */
 
 .comment {
-  margin: 0 auto;
+  margin: 0 auto 200px;
   margin-top: 62px;
 }
 
@@ -231,9 +236,6 @@ html {
   width: 1090px;
   padding-bottom: 20px;
   border-bottom: 1px solid white;
-}
-
-.comment-print .comment-card .info {
 }
 
 .comment-print .comment-card .info .name {
