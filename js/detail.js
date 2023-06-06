@@ -103,13 +103,13 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   const renderReview = (reviewData) => {
-    const { writer, comment } = reviewData;
+    const { writer, comment, gender } = reviewData;
     const reviewContainer = document.querySelector(".comment-print");
 
     let tempHtml = `<div class="comment-card">
                       <div class="info">
                         <div class="name">${writer}</div>
-                        <div class="gender">Male</div>
+                        <div class="gender">${gender}</div>
                       </div>
                       <div class="print">
                         ${comment}
