@@ -2,7 +2,8 @@
 /*
   div사이즈 동적으로 구하기
 */
-const outer = document.querySelector("#slider");
+export const slide = () => {
+  const outer = document.querySelector("#slider");
 const innerList = document.querySelector(".slide-inner");
 const inners = document.querySelectorAll(".slide");
 let currentIndex = 0; // 현재 슬라이드 화면 인덱스
@@ -48,5 +49,7 @@ const getInterval = () => {
 };
 
 let interval = getInterval(); // interval 등록
+
+}
 
 // ----------------------------------------------------------------------------------------

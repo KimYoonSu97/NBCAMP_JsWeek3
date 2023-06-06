@@ -1,5 +1,5 @@
 //데이터 fetch로 가져오기
-const getTopRatedMovies = async () => {
+export const getTopRatedMovies = async () => {
   const options = {
     method: "GET",
     headers: {
