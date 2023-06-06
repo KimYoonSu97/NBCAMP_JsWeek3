@@ -87,19 +87,27 @@ document.addEventListener("DOMContentLoaded", () => {
 
   reviewRegisterBtn.addEventListener("click", (e) => {
     e.preventDefault();
-
     let newReview = {
       writer: document.querySelector("#review-writer").value,
       comment: document.querySelector("#review-comment").value,
       password: document.querySelector("#review-password").value,
       gender: document.querySelector("input[name='gender']:checked").value,
     };
-
-    let reviewsFromDB = JSON.parse(localStorage.getItem("id"));
+      if (newReview.writer.trim() === "") {
+        alert("Please write your name");
+      } else if (newReview.password.trim() === "") {
+        alert("Please enter the password within 8 characters.");
+      } else if (newReview.password.length.trim() > 8) {
+        alert("Please enter the password within 8 characters. It's too long");
+      } else if (newReview.comment.trim() === "") {
+        alert("Please write comment");
+      } else {
+      let reviewsFromDB = JSON.parse(localStorage.getItem("id"));
     let reviews = reviewsFromDB ? [...reviewsFromDB, newReview] : [newReview];
 
     window.localStorage.setItem(id, JSON.stringify(reviews));
     showReviews();
+
   });
 
   const renderReview = (reviewData) => {
