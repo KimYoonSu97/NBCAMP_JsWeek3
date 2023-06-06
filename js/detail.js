@@ -82,3 +82,49 @@ function movieDetail(id) {
     .catch((err) => console.error(err));
 }
 movieDetail(id);
+
+document.addEventListener("DOMContentLoaded", () => {
+  const reviewRegisterBtn = document.querySelector("#review-register-btn");
+
+  reviewRegisterBtn.addEventListener("click", () => {
+    const createReview = () => {
+      let newReview = {
+        writer: document.querySelector("#review-writer").value,
+        comment: document.querySelector("#review-comment").value,
+        password: document.querySelector("#review-password").value,
+      };
+
+      let reviewsFromDB = JSON.parse(localStorage.getItem("id"));
+      let reviews = reviewsFromDB ? [...reviewsFromDB, newReview] : [newReview];
+
+      window.localStorage.setItem("id", JSON.stringify(reviews));
+    };
+    createReview();
+  });
+
+  const renderReview = (reviewData) => {
+    const { writer, comment } = reviewData;
+    const reviewContainer = document.querySelector(".comment-print");
+
+    let tempHtml = `<div class="comment-card">
+                      <div class="info">
+                        <div class="name">${writer}</div>
+                        <div class="gender">Male</div>
+                      </div>
+                      <div class="print">
+                        ${comment}
+                      </div>
+                    </div>`;
+    reviewContainer.insertAdjacentHTML("beforeend", tempHtml);
+  };
+
+  const showReviews = () => {
+    // 1. localStorage에서 reviews를 가져온다.
+    const reviews = JSON.parse(window.localStorage.getItem("id"));
+
+    reviews.forEach((review) => {
+      renderReview(review);
+    });
+  };
+  showReviews();
+});
