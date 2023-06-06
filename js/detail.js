@@ -81,6 +81,7 @@ function movieDetail() {
 
 movieDetail();
 
+// event listener
 document.addEventListener("DOMContentLoaded", () => {
   const reviewRegisterBtn = document.querySelector("#review-register-btn");
 
@@ -118,12 +119,13 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   const showReviews = () => {
-    // 1. localStorage에서 reviews를 가져온다.
     const reviews = JSON.parse(window.localStorage.getItem(id));
+    if (!reviews) return;
 
     reviews.forEach((review) => {
       renderReview(review);
     });
   };
+
   showReviews();
 });
