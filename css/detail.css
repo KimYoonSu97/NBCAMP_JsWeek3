@@ -5,6 +5,11 @@
   color: white;
 }
 
+input {
+  outline: none;
+  border: none;
+}
+
 html {
   background-color: black;
 }
@@ -123,6 +128,7 @@ html {
   text-align: center;
   font-size: 32px;
   font-weight: 700;
+  margin-bottom: 30px;
 }
 
 .money-info .money-table {
@@ -147,10 +153,59 @@ html {
   justify-content: center;
   align-items: center;
   display: flex;
+  margin-bottom: 40px;
 }
 
 .comment .title {
   font-size: 80px;
+}
+
+.comment .comment-form {
+  margin: 0 auto 60px;
+  text-align: center;
+}
+
+.comment .select {
+  width: 700px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.comment .select #review-writer,
+.comment .select #review-password {
+  height: 40px;
+  width: 200px;
+  color: black;
+  padding: 20px;
+  border-radius: 20px;
+  margin: 0 5px 0 0;
+}
+
+.comment .select .gender {
+  width: 80px;
+  height: 40px;
+  border-radius: 20px;
+  color: black;
+}
+
+.comment .comment-submit {
+  margin-top: 20px;
+}
+
+.comment .comment-submit #review-comment {
+  height: 80px;
+  width: 500px;
+  color: black;
+  padding: 20px;
+  border-radius: 20px;
+  margin: 0 5px 0 0;
+}
+
+.comment .comment-submit #review-register-btn {
+  width: 80px;
+  height: 80px;
+  border-radius: 20px;
+  color: black;
 }
 
 .comment .filters {
@@ -170,7 +225,7 @@ html {
 }
 
 .comment-print .comment-card {
-  margin: 0 auto;
+  margin: 40px auto 0;
   display: flex;
   justify-content: center;
   width: 1090px;
