@@ -107,7 +107,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     window.localStorage.setItem(id, JSON.stringify(reviews));
     showReviews();
-
+      }
   });
 
   const renderReview = (reviewData) => {
