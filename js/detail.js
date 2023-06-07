@@ -107,6 +107,7 @@ document.addEventListener("DOMContentLoaded", () => {
       alert("Please write comment");
     } else {
       let reviewsFromDB = JSON.parse(localStorage.getItem(id));
+      newReview["id"] = (reviewsFromDB || []).length + 1;
       let reviews = reviewsFromDB ? [...reviewsFromDB, newReview] : [newReview];
 
       window.localStorage.setItem(id, JSON.stringify(reviews));
@@ -137,17 +138,17 @@ document.addEventListener("DOMContentLoaded", () => {
     reviewContainer.innerHTML = "";
 
     reviewData.forEach((review) => {
-      const { writer, comment, gender } = review;
-      let tempHtml = `<div class="comment-card">
+      const { writer, comment, gender, id } = review;
+      let tempHtml = `<div class="comment-card" >
       <div class="info">
-      <div class="name">${writer}</div>
-      <div class="gender">${gender}</div>
+        <div class="name">${writer}</div>
+        <div class="gender">${gender}</div>
       </div>
       <div class="print">
-      ${comment}
+        ${comment}
       </div>
-      <div class="delete-btn">D</div>
-      <div class="modify-btn">M</div>
+        <div class="delete-btn" data-id=${id}>D</div>
+        <div class="modify-btn" data-id=${id}>M</div>
       </div>`;
       reviewContainer.insertAdjacentHTML("beforeend", tempHtml);
     });
@@ -160,4 +161,32 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   showReviews(reviews);
+
+  let modifyBtn = document.querySelectorAll(".modify-btn");
+  console.log(modifyBtn);
+
+  modifyBtn.forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+      const dataId = e.target.getAttribute("data-id");
+      const pw = prompt("password please");
+
+      // local storage에서 id에 해당하는 리뷰를 가져와야 함
+      const parsedReviews = JSON.parse(localStorage.getItem(id));
+      const review = parsedReviews[dataId - 1];
+
+      if (review.password === pw) {
+        const modifyReview = prompt("바꿀거 입력해라.");
+
+        // 스토리지 리뷰 객체의 comment 필드 변경
+        review.comment = modifyReview;
+        localStorage.setItem(id, JSON.stringify([...parsedReviews]));
+
+        // dom 핸들링
+        localStorage.getItem(id);
+        showReviews(JSON.parse(localStorage.getItem(id)));
+      } else {
+        alert("패스워드 틀림 ㅎㅋ");
+      }
+    });
+  });
 });
