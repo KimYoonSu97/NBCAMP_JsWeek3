@@ -6,17 +6,18 @@ const cardContainer = document.querySelector(".card-container");
 const searchInput = document.querySelector(".search-input");
 const searchButton = document.querySelector(".search-btn");
 const popularityBtn = document.querySelector(".popularity");
+const voteBtn = document.querySelector(".vote");
 const originalBtn = document.querySelector(".filter-name");
-
 
 const data = await getTopRatedMovies();
 
 //데이터 화면에 출력하기
 //slide (상단부분)
-const makeSlideMovieList = (data) => {
-  let filterdData = data.sort((a, b) => b.vote_average - a.vote_average); // 평점순으로 보여주기
+const makeSlideMovieList = () => {
+  const sortedData = [...data].sort((a, b) => b.vote_average - a.vote_average)// 평점순으로 보여주기
+
   for (let i = 0; i < 3; i++) {
-    let movie = filterdData[i];
+    let movie = sortedData[i];
     const slideInner = document.querySelector(".slide-inner");
     slideInner.innerHTML += `<div data-id="${movie.id}" class="slide">
         <div class="slide-num">
@@ -60,8 +61,8 @@ const showData = async (query) => {
   const data = await getTopRatedMovies();
   const inputData = query.toLowerCase().trim();
   const filteredData = data.filter((d) =>
-    d.title.toLowerCase().includes(inputData)
-  );
+    d.title.toLowerCase().split(" ").join("").includes(inputData)
+  )
 
   cardContainer.innerHTML = "";
   makeMovieList(filteredData);
@@ -87,21 +88,24 @@ searchInput.addEventListener("keypress", (event) => {
   }
 });
 
-//정렬기능
+//인기순 정렬기능
 popularityBtn.addEventListener("click", () => {
-  const sortedData = [...data]
-  const dataSortedByPopularity = sortedData.sort(
+  const sortedData = [...data].sort(
     (a, b) => b.popularity - a.popularity
   );
-
   cardContainer.innerHTML = "";
   makeMovieList(dataSortedByPopularity);
 });
+// 평점순 정렬기능
+voteBtn.addEventListener("click", () => {
+  const sortedData = [...data].sort(
+    (a, b) => b.vote_average - a.vote_average
+  );
+  cardContainer.innerHTML = "";
+  makeMovieList(dataSortedByvote_average);
+});
 //정렬 되돌리기
 originalBtn.addEventListener("click", () => {
-  console.log("실행")
-  console.log(data)
   cardContainer.innerHTML = "";
   makeMovieList(data);
 });
-
