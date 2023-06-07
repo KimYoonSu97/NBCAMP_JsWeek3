@@ -22,6 +22,9 @@ let moneyTable = document.querySelector(".money-table");
 // console.log(moneyTable);
 let moneyTableInfo = moneyTable.querySelectorAll(".info");
 // console.log(moneyTableInfo);
+let imageFlex1 = document.querySelector(".imageFlex1");
+let imageFlex2 = document.querySelector(".imageFlex2");
+let imageFlex3 = document.querySelector(".imageFlex3");
 
 let id;
 
@@ -50,24 +53,7 @@ function movieDetail() {
 
       budget = budget.toLocaleString("ko-KR");
       revenue = revenue.toLocaleString("ko-KR");
-      // function humanizeNum(num) {
-      //   num = String(num);
-      //   numArr = [];
-      //   console.log(num.length);
-      //   let count = 0;
-      //   for (let i = num.length; i >= 0; i--) {
-      //     if (count === 3) {
-      //       numArr.push(num[i]);
-      //       numArr.push(",");
-      //       count = 0;
-      //     } else {
-      //       numArr.push(num[i]);
-      //       count++;
-      //     }
-      //   }
-      //   return numArr;
-      // }
-      // console.log(humanizeNum(revenue));
+
       let movieInfoVal = [popularity + " 점", release_date, productionName];
       let moneyInfoVal = [
         budget + " 원",
@@ -100,6 +86,37 @@ function movieDetail() {
       moneyInfoVal.forEach((a, b) => {
         moneyTableInfo[b].innerHTML = a;
       });
+    })
+    .catch((err) => console.error(err));
+
+  fetch(`https://api.themoviedb.org/3/movie/${id}/images?language=ko`, options)
+    .then((item) => item.json())
+    .then((item) => {
+      console.log(item);
+      let imgAll = [...item.backdrops, ...item.logos, ...item.posters];
+      console.log(imgAll);
+      if (item.posters.length === 0) {
+        let gallerySection = document.querySelector(".gallery");
+        gallerySection.remove();
+      } else {
+        imgAll.forEach((img, index) => {
+          let { file_path: imgUrl } = img;
+          console.log(imgUrl);
+          if (index === 0 || index % 3 === 0) {
+            let temp_html_img = `<img src="https://image.tmdb.org/t/p/w500/${imgUrl}
+          " alt="포스터" />`;
+            imageFlex1.insertAdjacentHTML("beforeend", temp_html_img);
+          } else if (index === 1 || index % 3 === 1) {
+            let temp_html_img = `<img src="https://image.tmdb.org/t/p/w500/${imgUrl}
+          " alt="포스터" />`;
+            imageFlex2.insertAdjacentHTML("beforeend", temp_html_img);
+          } else if (index === 2 || index % 3 === 2) {
+            let temp_html_img = `<img src="https://image.tmdb.org/t/p/w500/${imgUrl}
+          " alt="포스터" />`;
+            imageFlex3.insertAdjacentHTML("beforeend", temp_html_img);
+          }
+        });
+      }
     })
     .catch((err) => console.error(err));
 }
