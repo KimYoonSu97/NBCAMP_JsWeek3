@@ -108,6 +108,9 @@ document.addEventListener("DOMContentLoaded", () => {
     } else {
       let reviewsFromDB = JSON.parse(localStorage.getItem(id));
 
+      // ?.
+      // undefied || 1 => 1
+      // reviewFromDB[마지막 객체 인덱스].id + 1
       newReview["id"] = reviewsFromDB?.[reviewsFromDB.length - 1]?.id + 1 || 1;
       let reviews = reviewsFromDB ? [...reviewsFromDB, newReview] : [newReview];
 
