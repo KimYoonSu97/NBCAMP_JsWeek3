@@ -1,160 +1,161 @@
 const options = {
-	method: 'GET',
-	headers: {
-		accept: 'application/json',
-		Authorization:
-			'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkZDgwZWRlZTA1ZDUxZWQ3OWQ1NGYzNmYxYzc5ZjdlZCIsInN1YiI6IjY0NzE0YmQ0ODgxM2U0MDEwMzU2YjRiMSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.J4EaZaROzOT41aMCipYrRWayXCxv1JIWJ182czkrun8',
-	},
+  method: "GET",
+  headers: {
+    accept: "application/json",
+    Authorization:
+      "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkZDgwZWRlZTA1ZDUxZWQ3OWQ1NGYzNmYxYzc5ZjdlZCIsInN1YiI6IjY0NzE0YmQ0ODgxM2U0MDEwMzU2YjRiMSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.J4EaZaROzOT41aMCipYrRWayXCxv1JIWJ182czkrun8",
+  },
 };
 
-let movieTitle = document.querySelector('.movie-title');
-let moviePoster = document.querySelector('.movie-poster');
-let movieInfo = document.querySelector('.movie-info');
-let movieValue = movieInfo.querySelectorAll('.value');
-let overView = document.querySelector('.overview');
-let detailGenre = document.querySelector('.genre');
+let movieTitle = document.querySelector(".movie-title");
+let moviePoster = document.querySelector(".movie-poster");
+let movieInfo = document.querySelector(".movie-info");
+let movieValue = movieInfo.querySelectorAll(".value");
+let overView = document.querySelector(".overview");
+let detailGenre = document.querySelector(".genre");
 
-let tagLine = document.querySelector('.tag-line');
-let tagLineP = tagLine.querySelector('p');
-let tagLineDiv = tagLine.querySelector('div');
+let tagLine = document.querySelector(".tag-line");
+let tagLineP = tagLine.querySelector("p");
+let tagLineDiv = tagLine.querySelector("div");
 
-let moneyTable = document.querySelector('.money-table');
+let moneyTable = document.querySelector(".money-table");
 // console.log(moneyTable);
-let moneyTableInfo = moneyTable.querySelectorAll('.info');
+let moneyTableInfo = moneyTable.querySelectorAll(".info");
 // console.log(moneyTableInfo);
 
 let id;
 
 function movieDetail() {
-	const params = new URLSearchParams(window.location.search);
-	id = params.get('id');
+  const params = new URLSearchParams(window.location.search);
+  id = params.get("id");
 
-	fetch(`https://api.themoviedb.org/3/movie/${id}`, options)
-		.then((response) => response.json())
-		.then((response) => {
-			let {
-				title,
-				vote_average: rating,
-				vote_count: vote,
-				overview,
-				poster_path: imgSrc,
-				revenue,
-				release_date,
-				popularity,
-				genres,
-				budget,
-				production_companies: production,
-				tagline,
-			} = response;
-			let productionName = production[0].name;
+  fetch(`https://api.themoviedb.org/3/movie/${id}`, options)
+    .then((response) => response.json())
+    .then((response) => {
+      let {
+        title,
+        vote_average: rating,
+        vote_count: vote,
+        overview,
+        poster_path: imgSrc,
+        revenue,
+        release_date,
+        popularity,
+        genres,
+        budget,
+        production_companies: production,
+        tagline,
+      } = response;
+      let productionName = production[0].name;
 
-			let movieInfoVal = [popularity, release_date, productionName];
-			let moneyInfoVal = [budget, rating, revenue, vote];
+      let movieInfoVal = [popularity, release_date, productionName];
+      let moneyInfoVal = [budget, rating, revenue, vote];
 
-			let genre = [];
-			for (let i = 0; i < genres.length; i++) {
-				genre.push(genres[i].name);
-			}
+      let genre = [];
+      for (let i = 0; i < genres.length; i++) {
+        genre.push(genres[i].name);
+      }
 
-			movieTitle.innerHTML = `${title}`;
-			moviePoster.innerHTML = `<img src="https://image.tmdb.org/t/p/w500/${imgSrc}
+      movieTitle.innerHTML = `${title}`;
+      moviePoster.innerHTML = `<img src="https://image.tmdb.org/t/p/w500/${imgSrc}
 " alt="포스터" />`;
-			movieInfoVal.forEach((a, b) => {
-				movieValue[b].innerHTML = a;
-			});
-			overView.innerHTML = `${overview}`;
+      movieInfoVal.forEach((a, b) => {
+        movieValue[b].innerHTML = a;
+      });
+      overView.innerHTML = `${overview}`;
 
-			genre.forEach((a) => {
-				let temp_html_genre = `<div>${a}</div>`;
-				detailGenre.insertAdjacentHTML('beforeend', temp_html_genre);
-			});
+      genre.forEach((a) => {
+        let temp_html_genre = `<div>${a}</div>`;
+        detailGenre.insertAdjacentHTML("beforeend", temp_html_genre);
+      });
 
-			tagLineP.innerHTML = `${tagline}`;
-			tagLineDiv.style.backgroundImage = `url(https://image.tmdb.org/t/p/w500/${imgSrc})`;
+      tagLineP.innerHTML = `${tagline}`;
+      tagLineDiv.style.backgroundImage = `url(https://image.tmdb.org/t/p/w500/${imgSrc})`;
 
-			moneyInfoVal.forEach((a, b) => {
-				moneyTableInfo[b].innerHTML = a;
-			});
-		})
-		.catch((err) => console.error(err));
+      moneyInfoVal.forEach((a, b) => {
+        moneyTableInfo[b].innerHTML = a;
+      });
+    })
+    .catch((err) => console.error(err));
 }
 
 movieDetail();
 
 // event listener
-document.addEventListener('DOMContentLoaded', () => {
-	const reviews = JSON.parse(window.localStorage.getItem(id));
+document.addEventListener("DOMContentLoaded", () => {
+  const reviews = JSON.parse(window.localStorage.getItem(id));
 
-	const reviewRegisterBtn = document.querySelector('#review-register-btn');
-	const filtersBtn = document.querySelector('.filters');
+  const reviewRegisterBtn = document.querySelector("#review-register-btn");
+  const filtersBtn = document.querySelector(".filters");
 
-	reviewRegisterBtn.addEventListener('click', (e) => {
-		e.preventDefault();
+  reviewRegisterBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    let newReview = {
+      writer: document.querySelector("#review-writer").value,
+      comment: document.querySelector("#review-comment").value,
+      password: document.querySelector("#review-password").value,
+      gender: document.querySelector("input[name='gender']:checked").value,
+    };
 
-		let newReview = {
-			writer: document.querySelector('#review-writer').value,
-			comment: document.querySelector('#review-comment').value,
-			password: document.querySelector('#review-password').value,
-			gender: document.querySelector("input[name='gender']:checked").value,
-		};
-		if (newReview.writer.trim() === '') {
-			alert('Please write your name');
-		} else if (newReview.password.trim() === '') {
-			alert('Please enter the password within 8 characters.');
-		} else if (newReview.password.length > 8) {
-			alert("Please enter the password within 8 characters. It's too long");
-		} else if (newReview.comment.trim() === '') {
-			alert('Please write comment');
-		} else {
-			let reviewsFromDB = JSON.parse(localStorage.getItem('id'));
-			let reviews = reviewsFromDB ? [...reviewsFromDB, newReview] : [newReview];
+    if (newReview.writer.trim() === "") {
+      alert("Please write your name");
+    } else if (newReview.password.trim() === "") {
+      alert("Please enter the password within 8 characters.");
+    } else if (newReview.password.length > 8) {
+      alert("Please enter the password within 8 characters. It's too long");
+    } else if (newReview.comment.trim() === "") {
+      alert("Please write comment");
+    } else {
+      let reviewsFromDB = JSON.parse(localStorage.getItem(id));
+      let reviews = reviewsFromDB ? [...reviewsFromDB, newReview] : [newReview];
 
-			window.localStorage.setItem(id, JSON.stringify(reviews));
-			showReviews(reviews);
-		}
-	});
+      window.localStorage.setItem(id, JSON.stringify(reviews));
+      showReviews(reviews);
+    }
+  });
 
-	filtersBtn.addEventListener('click', (e) => {
-		const reviews = JSON.parse(window.localStorage.getItem(id));
-		const target = e.target;
-		if (target.tagName !== 'P') return;
+  filtersBtn.addEventListener("click", (e) => {
+    const reviews = JSON.parse(window.localStorage.getItem(id));
+    const target = e.target;
+    if (target.tagName !== "P") return;
 
-		const selectedGender = target.getAttribute('data-gender');
-		const filteredReviews = reviews.filter((r) => {
-			if (selectedGender === 'male' || selectedGender === 'female') {
-				return r.gender === selectedGender;
-			} else {
-				return true;
-			}
-		});
-		renderReview(filteredReviews[0]);
-	});
+    const selectedGender = target.getAttribute("data-gender");
+    const filteredReviews = reviews.filter((r) => {
+      if (selectedGender === "male" || selectedGender === "female") {
+        return r.gender === selectedGender;
+      } else {
+        return true;
+      }
+    });
+    renderReview(filteredReviews);
+  });
 
-	const renderReview = (reviewData) => {
-		const reviewContainer = document.querySelector('.comment-print');
-    reviewContainer.innerHTML = '';
+  const renderReview = (reviewData) => {
     if (!reviewData) return;
 
-		const { writer, comment, gender } = reviewData;
-		let tempHtml = `<div class="comment-card">
-                      <div class="info">
-                        <div class="name">${writer}</div>
-                        <div class="gender">${gender}</div>
-                      </div>
-                      <div class="print">
-                        ${comment}
-                      </div>
-                    </div>`;
-		reviewContainer.insertAdjacentHTML('beforeend', tempHtml);
-	};
+    const reviewContainer = document.querySelector(".comment-print");
+    reviewContainer.innerHTML = "";
 
-	const showReviews = (reviews) => {
-		if (!reviews) return;
+    reviewData.forEach((review) => {
+      const { writer, comment, gender } = review;
+      let tempHtml = `<div class="comment-card">
+      <div class="info">
+      <div class="name">${writer}</div>
+      <div class="gender">${gender}</div>
+      </div>
+      <div class="print">
+      ${comment}
+      </div>
+      </div>`;
+      reviewContainer.insertAdjacentHTML("beforeend", tempHtml);
+    });
+  };
 
-		reviews.forEach((review) => {
-			renderReview(review);
-		});
-	};
+  const showReviews = (reviews) => {
+    if (!reviews) return;
+    //showRebiews 한번만 실행되게끔
+    renderReview(reviews);
+  };
 
-	showReviews(reviews);
+  showReviews(reviews);
 });
