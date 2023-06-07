@@ -2,8 +2,12 @@
   box-sizing: border-box;
   font-family: "sofia-pro", sans-serif;
   font-weight: 400;
-  background-color: black;
+  /* background-color: black; */
   color: white;
+}
+
+body {
+  background-color: black;
 }
 
 .header {
@@ -44,7 +48,6 @@
 }
 
 .slide {
-  background: rgba(255, 255, 255, 0.8);
   border-radius: 60px;
 }
 
@@ -67,7 +70,7 @@
   cursor: pointer;
   position: relative;
 }
-.slide-img::before {
+/* .slide-img::before {
   content: "상세 정보 보기";
   color: black;
   font-size: 30px;
@@ -88,7 +91,7 @@
 }
 .slide-img:hover::before {
   transform: translateX(-100%);
-}
+} */
 .slide-img img {
   width: 100%;
   height: 100%;
@@ -227,10 +230,11 @@ section.inner {
 .movie-card .card-poster {
   border-radius: 10px;
   overflow: hidden;
-  cursor: pointer;
+  /* cursor: pointer; */
   position: relative;
 }
-.card-poster::before {
+
+/* .card-poster::before {
   content: "상세 정보 보기";
   color: black;
   font-size: 20px;
@@ -250,7 +254,78 @@ section.inner {
   background-repeat: no-repeat;
 }
 .card-poster:hover::before {
-  transform: translateX(-100%);
+  transform: translateX(-100%); */
+/* } */
+
+.view-btn {
+  width: 100%;
+  height: 80%;
+  bottom: 0px;
+  position: absolute;
+  background: linear-gradient(
+    to bottom,
+    rgba(20, 20, 20, 0) 10%,
+    rgba(20, 20, 20, 0.25) 25%,
+    rgba(20, 20, 20, 0.5) 50%,
+    rgba(20, 20, 20, 0.75) 75%,
+    rgba(20, 20, 20, 1) 100%
+  );
+  opacity: 0.8;
+  display: none;
+}
+
+.like-btn {
+  position: absolute;
+  text-align: center;
+  padding: 0 30px;
+  border-radius: 40px;
+  width: 200px;
+  height: 60px;
+  font-size: 24px;
+  background-color: white;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 105px;
+  cursor: pointer;
+  display: none;
+  justify-content: center;
+  align-items: center;
+}
+.like-btn:hover {
+  transition: transform 0.1s linear;
+  transform: translateY(-5px) translateX(-50%);
+  filter: drop-shadow(0 5px 5px rgba(0, 0, 0, 0.5));
+}
+
+.like-btn p {
+  color: royalblue;
+}
+.like-btn .like-num {
+  margin-left: 5px;
+}
+
+.go-detail {
+  position: absolute;
+  text-align: center;
+  padding: 0 30px;
+  border-radius: 40px;
+  width: 200px;
+  height: 60px;
+  font-size: 24px;
+  background-color: royalblue;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 30px;
+  cursor: pointer;
+  display: none;
+  justify-content: center;
+  align-items: center;
+}
+
+.go-detail:hover {
+  transition: transform 0.1s linear;
+  transform: translateY(-5px) translateX(-50%);
+  filter: drop-shadow(0 5px 5px rgba(0, 0, 0, 0.5));
 }
 .card-poster img {
   width: 100%;
