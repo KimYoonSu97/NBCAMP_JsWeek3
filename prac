@@ -1,0 +1,58 @@
+</section>
+    <section class="similar">
+      <div class="card-container">
+        <div data-id="569094" class="movie-card">
+          <div class="card-poster">
+            <img
+              class="movie-img"
+              data-id="569094"
+              src="https://image.tmdb.org/t/p/w500//zG9TYiHt0fdaJiWuNEhFrfKzwoi.jpg"
+              alt="name poster"
+            />
+          </div>
+          <div class="card-title">스파이더맨: 어크로스 더 유니버스</div>
+          <div class="card-rating">8.8</div>
+        </div>
+      </div>
+    </section>
+
+
+    section.similar {
+        width: 1280px;
+        margin: 130px auto 130px;
+      }
+      
+      .card-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 290px));
+        gap: 40px;
+      }
+      .movie-card {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        margin-top: 30px;
+        overflow: hidden;
+      }
+      
+      .movie-card .card-poster {
+        border-radius: 10px;
+        overflow: hidden;
+      }
+      
+      .card-poster img {
+        width: 100%;
+        margin: 0 auto;
+        object-fit: cover;
+      }
+      
+      .movie-card .card-title {
+        margin-top: 30px;
+        font-size: 32px;
+        font-weight: 700;
+      }
+      .movie-card .card-rating {
+        margin-top: 10px;
+        font-size: 24px;
+      }
+      

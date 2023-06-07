@@ -151,7 +151,7 @@ html {
 /* comment */
 
 .comment {
-  margin: 0 auto 200px;
+  margin: 0 auto 100px;
   margin-top: 62px;
 }
 
@@ -271,4 +271,50 @@ html {
 .comment-print .comment-card .modify-btn {
   margin-right: 20px;
   margin-left: 20px;
+}
+
+.gallery {
+  margin: 100px auto 0;
+  width: 1090px;
+}
+.gallery .gallery-title {
+  text-align: center;
+  font-size: 80px;
+  margin-bottom: 60px;
+}
+
+.gallery .container {
+  width: 100%;
+  margin: auto;
+  overflow: hidden;
+}
+.gallery .images {
+  width: 100%;
+  height: auto;
+}
+.gallery .images img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+@media (min-width: 640px) {
+  .gallery .container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 30px;
+    grid-auto-flow: row dense;
+  }
+  .gallery .imageFlex1 {
+    display: grid;
+    row-gap: 20px;
+  }
+  .gallery .imageFlex2 {
+    display: grid;
+    row-gap: 20px;
+  }
+  .gallery .imageFlex3 {
+    display: grid;
+    row-gap: 20px;
+  }
 }
