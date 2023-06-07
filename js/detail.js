@@ -166,6 +166,34 @@ document.addEventListener("DOMContentLoaded", () => {
 
   showReviews(reviews);
 
+  let deleteBtn = document.querySelectorAll(".delete-btn");
+
+  deleteBtn.forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+      const dataId = e.target.getAttribute("data-id");
+      const pw = prompt("password please");
+
+      // local storage에서 id에 해당하는 리뷰를 가져와야 함
+      const parsedReviews = JSON.parse(localStorage.getItem(id));
+      const review = parsedReviews.find((r) => r.id === +dataId);
+      // parsedReviews = [{comment: '처음에 적혀있던 리뷰'}, {}]
+      console.log("parsedReviews", parsedReviews);
+      if (review.password === pw) {
+        const deletedReviews = parsedReviews.filter(
+          (item) => item.id !== review.id
+        );
+
+        console.log("deletedReviews", deletedReviews);
+        localStorage.setItem(id, JSON.stringify([...deletedReviews]));
+
+        // dom 핸들링
+        showReviews(JSON.parse(localStorage.getItem(id)));
+      } else {
+        alert("패스워드 틀림 ㅎㅋ");
+      }
+    });
+  });
+
   let modifyBtn = document.querySelectorAll(".modify-btn");
 
   modifyBtn.forEach((btn) => {
