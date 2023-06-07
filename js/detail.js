@@ -48,6 +48,26 @@ function movieDetail() {
       } = response;
       let productionName = production[0].name;
 
+      budget = budget.toLocaleString("ko-KR");
+      revenue = revenue.toLocaleString("ko-KR");
+      // function humanizeNum(num) {
+      //   num = String(num);
+      //   numArr = [];
+      //   console.log(num.length);
+      //   let count = 0;
+      //   for (let i = num.length; i >= 0; i--) {
+      //     if (count === 3) {
+      //       numArr.push(num[i]);
+      //       numArr.push(",");
+      //       count = 0;
+      //     } else {
+      //       numArr.push(num[i]);
+      //       count++;
+      //     }
+      //   }
+      //   return numArr;
+      // }
+      // console.log(humanizeNum(revenue));
       let movieInfoVal = [popularity + " 점", release_date, productionName];
       let moneyInfoVal = [
         budget + " 원",
