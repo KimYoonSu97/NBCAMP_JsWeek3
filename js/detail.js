@@ -141,6 +141,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       window.localStorage.setItem(id, JSON.stringify(reviews));
       showReviews(reviews);
+      location.reload();
     }
   });
 
@@ -169,16 +170,16 @@ document.addEventListener("DOMContentLoaded", () => {
     reviewData.forEach((review) => {
       const { writer, comment, gender, id } = review;
       let tempHtml = `<div class="comment-card" >
-      <div class="info">
-        <div class="name">${writer}</div>
-        <div class="gender">${gender}</div>
-      </div>
-      <div class="print">
-        ${comment}
-      </div>
-        <div class="delete-btn" data-id=${id}>삭제</div>
-        <div class="modify-btn" data-id=${id}>수정</div>
-      </div>`;
+                        <div class="info">
+                          <div class="name">${writer}</div>
+                          <div class="gender">${gender}</div>
+                        </div>
+                        <div class="print">
+                          ${comment}
+                        </div>
+                        <div class="delete-btn" data-id=${id}>삭제</div>
+                        <div class="modify-btn" data-id=${id}>수정</div>
+                      </div>`;
       reviewContainer.insertAdjacentHTML("beforeend", tempHtml);
     });
   };
@@ -216,6 +217,7 @@ document.addEventListener("DOMContentLoaded", () => {
       } else {
         alert("패스워드 틀림 ㅎㅋ");
       }
+      location.reload();
     });
   });
 
@@ -244,6 +246,7 @@ document.addEventListener("DOMContentLoaded", () => {
       } else {
         alert("패스워드 틀림 ㅎㅋ");
       }
+      location.reload();
     });
   });
 });
