@@ -11,7 +11,7 @@ const originalBtn = document.querySelector(".filter-name");
 
 const data = await getTopRatedMovies();
 
-//좋아요기능
+//좋아요기능 //웹에 바로반영됨
 const likeFunction = () => {
   let likeFunc = document.querySelectorAll(".like-btn");
   likeFunc.forEach((btn) => {
@@ -128,6 +128,8 @@ likeFunction();
 searchButton.addEventListener("click", () => {
   const query = searchInput.value;
   showData(query);
+  MovieCardimgBtn();
+  likeFunction();
 });
 
 searchInput.addEventListener("keypress", (event) => {
