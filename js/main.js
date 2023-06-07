@@ -21,8 +21,8 @@ const makeSlideMovieList = () => {
     const slideInner = document.querySelector(".slide-inner");
     slideInner.innerHTML += `<div data-id="${movie.id}" class="slide">
         <div class="slide-num">
-          <div class="slide-img">
-            <img class="movie-img" data-id="${movie.id}"
+          <div class="slide-img" data-id="${movie.id}">
+            <img
               src="https://image.tmdb.org/t/p/w500/${movie.poster_path}"
               alt="name poster"
             />
@@ -43,8 +43,8 @@ const makeMovieList = (data) => {
   data.forEach((movie) => {
     const cardContainer = document.querySelector(".card-container");
     cardContainer.innerHTML += `<div data-id="${movie.id}" class="movie-card">
-      <div class="card-poster">
-        <img class="movie-img" data-id="${movie.id}"
+      <div class="card-poster" data-id="${movie.id}">
+        <img
           src="https://image.tmdb.org/t/p/w500/${movie.poster_path}"
           alt="name poster"
         />
@@ -57,8 +57,7 @@ const makeMovieList = (data) => {
   toDetail();
 };
 
-const showData = async (query) => {
-  const data = await getTopRatedMovies();
+const showData = (query) => {
   const inputData = query.toLowerCase().trim();
   const filteredData = data.filter((d) =>
     d.title.toLowerCase().split(" ").join("").includes(inputData)

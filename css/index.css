@@ -65,8 +65,30 @@
   margin: 0 auto;
   overflow: hidden;
   cursor: pointer;
+  position: relative;
 }
-
+.slide-img::before {
+  content: "상세 정보 보기";
+  color: black;
+  font-size: 30px;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-color: gray;
+  top: 0;
+  left: 100%;
+  transition: all 0.3s;
+  opacity: 0.5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  -webkit-text-stroke: 2px black;
+  background-image: linear-gradient(0deg, black, #f9f7f1);
+  background-repeat: no-repeat;
+}
+.slide-img:hover::before {
+  transform: translateX(-100%);
+}
 .slide-img img {
   width: 100%;
   height: 100%;
@@ -89,9 +111,6 @@
 }
 
 /* slide btn */
-.movie-img {
-  cursor: pointer;
-}
 
 .button-list {
   position: relative;
@@ -208,8 +227,31 @@ section.inner {
 .movie-card .card-poster {
   border-radius: 10px;
   overflow: hidden;
+  cursor: pointer;
+  position: relative;
 }
-
+.card-poster::before {
+  content: "상세 정보 보기";
+  color: black;
+  font-size: 20px;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-color: gray;
+  top: 0;
+  left: 100%;
+  transition: all 0.3s;
+  opacity: 0.5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  -webkit-text-stroke: 2px black;
+  background-image: linear-gradient(0deg, black, #f9f7f1);
+  background-repeat: no-repeat;
+}
+.card-poster:hover::before {
+  transform: translateX(-100%);
+}
 .card-poster img {
   width: 100%;
   margin: 0 auto;
