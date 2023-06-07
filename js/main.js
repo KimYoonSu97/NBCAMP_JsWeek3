@@ -11,8 +11,8 @@ const originalBtn = document.querySelector(".filter-name");
 
 const data = await getTopRatedMovies();
 
-// 이미지 호버기능 함수
-const imgBtn = function () {
+// 하단 카드 이미지 호버기능 함수
+const MovieCardimgBtn = function () {
   const imgHover = document.querySelectorAll(".card-poster");
 
   // 마우스 오버 이벤트
@@ -74,7 +74,7 @@ const makeMovieList = (data) => {
     cardContainer.innerHTML += `<div data-id="${movie.id}" class="movie-card">
       <div class="card-poster" >
       <div class="view-btn"></div>
-      <div class="like-btn" ><p>좋아요</p> <p class="like-num">20</p></div>
+      <div class="like-btn" ><p>좋아요</p> <p class="like-num">0</p></div>
       <div class="go-detail" data-id="${movie.id}"><p> 상세정보보기</p> </div>
       <img
       src="https://image.tmdb.org/t/p/w500/${movie.poster_path}"
@@ -102,7 +102,7 @@ const showData = (query) => {
 // entrypoint
 makeSlideMovieList(data);
 makeMovieList(data);
-imgBtn();
+MovieCardimgBtn();
 
 // event listener
 //검색기능
@@ -123,18 +123,41 @@ popularityBtn.addEventListener("click", () => {
   const sortedData = [...data].sort((a, b) => b.popularity - a.popularity);
   cardContainer.innerHTML = "";
   makeMovieList(sortedData);
-  imgBtn();
+  MovieCardimgBtn();
 });
 // 평점순 정렬기능
 voteBtn.addEventListener("click", () => {
   const sortedData = [...data].sort((a, b) => b.vote_average - a.vote_average);
   cardContainer.innerHTML = "";
   makeMovieList(sortedData);
-  imgBtn();
+  MovieCardimgBtn();
 });
 //정렬 되돌리기
 originalBtn.addEventListener("click", () => {
   cardContainer.innerHTML = "";
   makeMovieList(data);
-  imgBtn();
+  MovieCardimgBtn();
 });
+
+let likeFunc = document.querySelectorAll(".like-btn");
+likeFunc.forEach((btn) => {
+  let likeNum = btn.querySelector(".like-num");
+  let likeCount = likeNum.innerText;
+  console.log(likeCount);
+  btn.addEventListener("click", function () {
+    likeCount++;
+    likeNum.innerText = likeCount;
+  });
+});
+
+// console.log(data);
+// let likeNum = document.querySelectorAll(".like-num");
+// likeNum.forEach((value) => {
+//   console.log(value);
+
+//   let NewLikecount = { like: value.innerText };
+//   console.log(NewLikecount);
+//   // // let
+//   // window.localStorage.setItem("")
+// });
+// console.log(likeNum);
