@@ -86,9 +86,9 @@
       <div class="title-area">
         <div class="title">Comment</div>
         <div class="filters">
-          <p data-gender="all">All</p>
-          <p data-gender="male">Male</p>
-          <p data-gender="female">Female</p>
+          <p>All</p>
+          <p>Male</p>
+          <p>Female</p>
         </div>
       </div>
       <!-- form -->
@@ -96,10 +96,10 @@
         <div class="select">
           <input id="review-writer" type="text" placeholder="Your name" />
           <input id="review-password" type="password" placeholder="Password" />
-					<input type="radio" id="Choice1" name="gender" value="male" checked="checked">
-					<label for="Choice1">Male</label>
-					<input type="radio" id="Choice2" name="gender" value="female">
-					<label for="Choice2">Female</label>
+          <input type="radio" id="Choice1" name="gender" value="male" />
+          <label for="Choice1">Male</label>
+          <input type="radio" id="Choice2" name="gender" value="female" />
+          <label for="Choice2">Female</label>
         </div>
         <div class="comment-submit">
           <input
@@ -113,7 +113,17 @@
       </form>
 
       <!-- comment print -->
-      <div class="comment-print"></div>
+      <div class="comment-print">
+        <div class="comment-card">
+          <div class="info">
+            <div class="name">${writer}</div>
+            <div class="gender">${gender}</div>
+          </div>
+          <div class="print">${comment}</div>
+          <div class="delete-btn">D</div>
+          <div class="modify-btn">M</div>
+        </div>
+      </div>
     </section>
   </body>
 </html>

@@ -146,6 +146,8 @@ document.addEventListener("DOMContentLoaded", () => {
       <div class="print">
       ${comment}
       </div>
+      <div class="delete-btn">D</div>
+      <div class="modify-btn">M</div>
       </div>`;
       reviewContainer.insertAdjacentHTML("beforeend", tempHtml);
     });

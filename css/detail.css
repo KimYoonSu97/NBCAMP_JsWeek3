@@ -233,6 +233,7 @@ html {
   margin: 40px auto 0;
   display: flex;
   justify-content: center;
+  align-items: center;
   width: 1090px;
   padding-bottom: 20px;
   border-bottom: 1px solid white;
@@ -241,6 +242,7 @@ html {
 .comment-print .comment-card .info .name {
   font-size: 24px;
   margin-bottom: 5px;
+  width: 150px;
 }
 
 .comment-print .comment-card .info .gender {
@@ -251,4 +253,20 @@ html {
   font-size: 24px;
   margin-left: 30px;
   width: 890px;
+}
+
+.comment-print .comment-card .delete-btn,
+.comment-print .comment-card .modify-btn {
+  font-size: 30px;
+  color: rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+}
+
+.comment-print .comment-card .delete-btn:hover,
+.comment-print .comment-card .modify-btn:hover {
+  color: white;
+}
+.comment-print .comment-card .modify-btn {
+  margin-right: 20px;
+  margin-left: 20px;
 }
