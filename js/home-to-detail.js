@@ -9,7 +9,7 @@ export const toDetail = () => {
   });
 
   //하단부 영화카드 클릭시
-  const bottomMovieCards = document.querySelectorAll(".card-poster");
+  const bottomMovieCards = document.querySelectorAll(".go-detail");
   bottomMovieCards.forEach((v) => {
     v.addEventListener("click", () => {
       const id = v.getAttribute("data-id");
