@@ -38,7 +38,10 @@ const makeSlideMovieList = () => {
   slide();
 };
 
-const makeMovieList = (data) => {
+const makeMovieList = (data, query) => {
+  if (data.length == 0) {
+    cardContainer.innerHTML += `죄송합니다. '${query}'(으)로 검색되는 영화가 존재하지 않습니다.`;
+  }
   //div card-container (하단부분)
   data.forEach((movie) => {
     const cardContainer = document.querySelector(".card-container");
@@ -64,7 +67,7 @@ const showData = (query) => {
   );
 
   cardContainer.innerHTML = "";
-  makeMovieList(filteredData);
+  makeMovieList(filteredData, query);
 };
 
 // entrypoint
