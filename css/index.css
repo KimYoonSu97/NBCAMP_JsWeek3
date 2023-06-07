@@ -89,6 +89,9 @@
 }
 
 /* slide btn */
+.movie-img {
+  cursor: pointer;
+}
 
 .button-list {
   position: relative;
