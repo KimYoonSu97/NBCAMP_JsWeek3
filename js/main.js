@@ -5,7 +5,9 @@ import { toDetail } from "./home-to-detail.js"; //상세페이지 이동기능
 const cardContainer = document.querySelector(".card-container");
 const searchInput = document.querySelector(".search-input");
 const searchButton = document.querySelector(".search-btn");
-const popularity = document.querySelector(".popularity");
+const popularityBtn = document.querySelector(".popularity");
+const originalBtn = document.querySelector(".filter-name");
+
 
 const data = await getTopRatedMovies();
 
@@ -19,7 +21,7 @@ const makeSlideMovieList = (data) => {
     slideInner.innerHTML += `<div data-id="${movie.id}" class="slide">
         <div class="slide-num">
           <div class="slide-img">
-            <img
+            <img class="movie-img" data-id="${movie.id}"
               src="https://image.tmdb.org/t/p/w500/${movie.poster_path}"
               alt="name poster"
             />
@@ -41,7 +43,7 @@ const makeMovieList = (data) => {
     const cardContainer = document.querySelector(".card-container");
     cardContainer.innerHTML += `<div data-id="${movie.id}" class="movie-card">
       <div class="card-poster">
-        <img
+        <img class="movie-img" data-id="${movie.id}"
           src="https://image.tmdb.org/t/p/w500/${movie.poster_path}"
           alt="name poster"
         />
@@ -86,12 +88,20 @@ searchInput.addEventListener("keypress", (event) => {
 });
 
 //정렬기능
-popularity.addEventListener("click", () => {
-  const dataSortedByPopularity = data.sort(
+popularityBtn.addEventListener("click", () => {
+  const sortedData = [...data]
+  const dataSortedByPopularity = sortedData.sort(
     (a, b) => b.popularity - a.popularity
   );
 
   cardContainer.innerHTML = "";
   makeMovieList(dataSortedByPopularity);
+});
+//정렬 되돌리기
+originalBtn.addEventListener("click", () => {
+  console.log("실행")
+  console.log(data)
+  cardContainer.innerHTML = "";
+  makeMovieList(data);
 });
 
