@@ -10,7 +10,7 @@ export const getTopRatedMovies = async () => {
   };
   try {
     let res = await fetch(
-      "https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1",
+      "https://api.themoviedb.org/3/movie/now_playing?language=ko-kr&page=1",
       options
     );
     let data = await res.json();
