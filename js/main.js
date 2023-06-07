@@ -14,7 +14,7 @@ const data = await getTopRatedMovies();
 //데이터 화면에 출력하기
 //slide (상단부분)
 const makeSlideMovieList = () => {
-  const sortedData = [...data].sort((a, b) => b.vote_average - a.vote_average)// 평점순으로 보여주기
+  const sortedData = [...data].sort((a, b) => b.vote_average - a.vote_average); // 평점순으로 보여주기
 
   for (let i = 0; i < 3; i++) {
     let movie = sortedData[i];
@@ -62,7 +62,7 @@ const showData = async (query) => {
   const inputData = query.toLowerCase().trim();
   const filteredData = data.filter((d) =>
     d.title.toLowerCase().split(" ").join("").includes(inputData)
-  )
+  );
 
   cardContainer.innerHTML = "";
   makeMovieList(filteredData);
@@ -71,8 +71,6 @@ const showData = async (query) => {
 // entrypoint
 makeSlideMovieList(data);
 makeMovieList(data);
-
-
 
 // event listener
 //검색기능
@@ -90,19 +88,15 @@ searchInput.addEventListener("keypress", (event) => {
 
 //인기순 정렬기능
 popularityBtn.addEventListener("click", () => {
-  const sortedData = [...data].sort(
-    (a, b) => b.popularity - a.popularity
-  );
+  const sortedData = [...data].sort((a, b) => b.popularity - a.popularity);
   cardContainer.innerHTML = "";
-  makeMovieList(dataSortedByPopularity);
+  makeMovieList(sortedData);
 });
 // 평점순 정렬기능
 voteBtn.addEventListener("click", () => {
-  const sortedData = [...data].sort(
-    (a, b) => b.vote_average - a.vote_average
-  );
+  const sortedData = [...data].sort((a, b) => b.vote_average - a.vote_average);
   cardContainer.innerHTML = "";
-  makeMovieList(dataSortedByvote_average);
+  makeMovieList(sortedData);
 });
 //정렬 되돌리기
 originalBtn.addEventListener("click", () => {
