@@ -56,7 +56,7 @@ const makeMovieList = (data) => {
 
 const showData = async (query) => {
   const data = await getTopRatedMovies();
-  const inputData = query.toLowerCase();
+  const inputData = query.toLowerCase().trim();
   const filteredData = data.filter((d) =>
     d.title.toLowerCase().includes(inputData)
   );
@@ -76,6 +76,13 @@ makeMovieList(data);
 searchButton.addEventListener("click", () => {
   const query = searchInput.value;
   showData(query);
+});
+
+searchInput.addEventListener("keypress", (event) => {
+  if (event.key === "Enter") {
+    event.preventDefault();
+    searchButton.click();
+  }
 });
 
 //정렬기능
