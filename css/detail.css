@@ -87,6 +87,7 @@ html {
 
 .movie-detail .movie-info .overview {
   font-size: 24px;
+  line-height: 1.5;
 }
 
 .movie-detail .movie-info .genre {
@@ -257,9 +258,10 @@ html {
 
 .comment-print .comment-card .delete-btn,
 .comment-print .comment-card .modify-btn {
-  font-size: 30px;
+  font-size: 18px;
   color: rgba(255, 255, 255, 0.5);
   cursor: pointer;
+  width: 40px;
 }
 
 .comment-print .comment-card .delete-btn:hover,

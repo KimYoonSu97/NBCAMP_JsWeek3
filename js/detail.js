@@ -29,7 +29,7 @@ function movieDetail() {
   const params = new URLSearchParams(window.location.search);
   id = params.get("id");
 
-  fetch(`https://api.themoviedb.org/3/movie/${id}`, options)
+  fetch(`https://api.themoviedb.org/3/movie/${id}?language=ko-KR`, options)
     .then((response) => response.json())
     .then((response) => {
       let {
@@ -48,8 +48,13 @@ function movieDetail() {
       } = response;
       let productionName = production[0].name;
 
-      let movieInfoVal = [popularity, release_date, productionName];
-      let moneyInfoVal = [budget, rating, revenue, vote];
+      let movieInfoVal = [popularity + " 점", release_date, productionName];
+      let moneyInfoVal = [
+        budget + " 원",
+        rating + " 점",
+        revenue + " 원",
+        vote + " 개",
+      ];
 
       let genre = [];
       for (let i = 0; i < genres.length; i++) {
@@ -58,7 +63,7 @@ function movieDetail() {
 
       movieTitle.innerHTML = `${title}`;
       moviePoster.innerHTML = `<img src="https://image.tmdb.org/t/p/w500/${imgSrc}
-" alt="포스터" />`;
+    " alt="포스터" />`;
       movieInfoVal.forEach((a, b) => {
         movieValue[b].innerHTML = a;
       });
@@ -126,7 +131,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const selectedGender = target.getAttribute("data-gender");
     const filteredReviews = reviews.filter((r) => {
-      if (selectedGender === "male" || selectedGender === "female") {
+      if (selectedGender === "남성" || selectedGender === "여성") {
         return r.gender === selectedGender;
       } else {
         return true;
@@ -151,8 +156,8 @@ document.addEventListener("DOMContentLoaded", () => {
       <div class="print">
         ${comment}
       </div>
-        <div class="delete-btn" data-id=${id}>D</div>
-        <div class="modify-btn" data-id=${id}>M</div>
+        <div class="delete-btn" data-id=${id}>삭제</div>
+        <div class="modify-btn" data-id=${id}>수정</div>
       </div>`;
       reviewContainer.insertAdjacentHTML("beforeend", tempHtml);
     });

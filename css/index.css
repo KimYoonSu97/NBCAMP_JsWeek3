@@ -136,6 +136,7 @@ section.inner {
 .filter .filter-name {
   font-size: 32px;
   font-weight: 700;
+  cursor: pointer;
 }
 
 .filter .filter-select {

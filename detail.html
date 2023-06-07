@@ -28,15 +28,15 @@
         </div>
         <div class="movie-info">
           <div class="popular">
-            <p class="category">Popularity</p>
+            <p class="category">인기도</p>
             <p class="value"></p>
           </div>
           <div class="release">
-            <p class="category">Release</p>
+            <p class="category">개봉일자</p>
             <p class="value"></p>
           </div>
           <div class="production">
-            <p class="category">Production</p>
+            <p class="category">제작사</p>
             <p class="value"></p>
           </div>
           <div class="overview"></div>
@@ -59,23 +59,26 @@
     <!-- movie detail production and box office success -->
     <section class="money-info">
       <div class="title">
-        <p>production and box office success</p>
+        <p>제작 및 흥행</p>
       </div>
       <table class="money-table">
         <tr>
           <!-- 첫번째 줄 시작 -->
-          <td class="category">Budget</td>
+          <td class="category">제작예산</td>
           <td class="info"></td>
-          <td class="category">Revenue</td>
+          <td class="category">흥행수익</td>
           <td class="info"></td>
         </tr>
         <!-- 첫번째 줄 끝 -->
         <tr>
           <!-- 두번째 줄 시작 -->
-          <td class="category">Revenue</td>
+          <td class="category">평점 평균</td>
           <td class="info">6.08</td>
-          <td class="category">Vote</td>
-          <td class="info">454</td>
+          <td class="category">총 투표 수</td>
+          <td class="info">
+            454
+            <p>개</p>
+          </td>
         </tr>
         <!-- 두번째 줄 끝 -->
       </table>
@@ -84,11 +87,11 @@
     <!-- comment -->
     <section class="comment">
       <div class="title-area">
-        <div class="title">Comment</div>
+        <div class="title">영화 관람평</div>
         <div class="filters">
-          <p data-gender="all">All</p>
-          <p data-gender="male">Male</p>
-          <p data-gender="female">Female</p>
+          <p data-gender="모두보기">모두보기</p>
+          <p data-gender="남성">남성</p>
+          <p data-gender="여성">여성</p>
         </div>
       </div>
       <!-- form -->
@@ -96,10 +99,16 @@
         <div class="select">
           <input id="review-writer" type="text" placeholder="Your name" />
           <input id="review-password" type="password" placeholder="Password" />
-          <input type="radio" id="Choice1" name="gender" value="male" checked="checked" />
-          <label for="Choice1">Male</label>
-          <input type="radio" id="Choice2" name="gender" value="female" />
-          <label for="Choice2">Female</label>
+          <input
+            type="radio"
+            id="Choice1"
+            name="gender"
+            value="남성"
+            checked="checked"
+          />
+          <label for="Choice1">남성</label>
+          <input type="radio" id="Choice2" name="gender" value="여성" />
+          <label for="Choice2">여성</label>
         </div>
         <div class="comment-submit">
           <input
