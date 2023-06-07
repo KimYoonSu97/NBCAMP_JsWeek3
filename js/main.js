@@ -11,6 +11,20 @@ const originalBtn = document.querySelector(".filter-name");
 
 const data = await getTopRatedMovies();
 
+//좋아요기능
+const likeFunction = () => {
+  let likeFunc = document.querySelectorAll(".like-btn");
+  likeFunc.forEach((btn) => {
+    let likeNum = btn.querySelector(".like-num");
+    let likeCount = likeNum.innerText;
+    console.log(likeCount);
+    btn.addEventListener("click", function () {
+      likeCount++;
+      likeNum.innerText = likeCount;
+    });
+  });
+};
+
 // 하단 카드 이미지 호버기능 함수
 const MovieCardimgBtn = function () {
   const imgHover = document.querySelectorAll(".card-poster");
@@ -100,13 +114,15 @@ const showData = (query) => {
 
   cardContainer.innerHTML = "";
   makeMovieList(filteredData, query);
+  MovieCardimgBtn();
+  likeFunction();
 };
 
 // entrypoint
 makeSlideMovieList(data);
 makeMovieList(data);
 MovieCardimgBtn();
-
+likeFunction();
 // event listener
 //검색기능
 searchButton.addEventListener("click", () => {
@@ -127,6 +143,7 @@ popularityBtn.addEventListener("click", () => {
   cardContainer.innerHTML = "";
   makeMovieList(sortedData);
   MovieCardimgBtn();
+  likeFunction();
 });
 // 평점순 정렬기능
 voteBtn.addEventListener("click", () => {
@@ -134,23 +151,14 @@ voteBtn.addEventListener("click", () => {
   cardContainer.innerHTML = "";
   makeMovieList(sortedData);
   MovieCardimgBtn();
+  likeFunction();
 });
 //정렬 되돌리기
 originalBtn.addEventListener("click", () => {
   cardContainer.innerHTML = "";
   makeMovieList(data);
   MovieCardimgBtn();
-});
-
-let likeFunc = document.querySelectorAll(".like-btn");
-likeFunc.forEach((btn) => {
-  let likeNum = btn.querySelector(".like-num");
-  let likeCount = likeNum.innerText;
-  console.log(likeCount);
-  btn.addEventListener("click", function () {
-    likeCount++;
-    likeNum.innerText = likeCount;
-  });
+  likeFunction();
 });
 
 // console.log(data);
