@@ -8,6 +8,7 @@ const searchButton = document.querySelector(".search-btn");
 const popularityBtn = document.querySelector(".popularity");
 const voteBtn = document.querySelector(".vote");
 const originalBtn = document.querySelector(".filter-name");
+const inner = document.querySelector(".inner");
 
 const data = await getTopRatedMovies();
 let viewLikeNum;
@@ -380,6 +381,6 @@ const renderSearchItem = (array) => {
 renderSearchItem(JSON.parse(localStorage.getItem("searchKeyword")));
 
 const goToScroll = function () {
-  const location = cardContainer.offsetTop;
+  const location = inner.offsetTop;
   window.scrollTo({ top: location, behavior: "smooth" });
 };
