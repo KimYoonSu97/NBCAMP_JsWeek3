@@ -8,6 +8,8 @@ export const slide = () => {
   const inners = document.querySelectorAll(".slide");
   let currentIndex = 0; // 현재 슬라이드 화면 인덱스
 
+  let isButtonDisabled = 0;
+
   inners.forEach((inner) => {
     inner.style.width = `${outer.clientWidth}px`; // inner의 width를 모두 outer의 width로 만들기
   });
@@ -21,20 +23,24 @@ export const slide = () => {
   const buttonRight = document.querySelector(".button-right");
 
   buttonLeft.addEventListener("click", () => {
+    if (isButtonDisabled) return;
     currentIndex--;
     currentIndex = currentIndex < 0 ? 0 : currentIndex; // index값이 0보다 작아질 경우 0으로 변경
     innerList.style.marginLeft = `-${outer.clientWidth * currentIndex}px`; // index만큼 margin을 주어 옆으로 밀기
     clearInterval(interval); // 기존 동작되던 interval 제거
     interval = getInterval(); // 새로운 interval 등록
+    disableButtonTemp(buttonLeft);
   });
 
   buttonRight.addEventListener("click", () => {
+    if (isButtonDisabled) return;
     currentIndex++;
     currentIndex =
       currentIndex >= inners.length ? inners.length - 1 : currentIndex; // index값이 inner의 총 개수보다 많아질 경우 마지막 인덱스값으로 변경
     innerList.style.marginLeft = `-${outer.clientWidth * currentIndex}px`; // index만큼 margin을 주어 옆으로 밀기
     clearInterval(interval); // 기존 동작되던 interval 제거
     interval = getInterval(); // 새로운 interval 등록
+    disableButtonTemp(buttonRight);
   });
 
   /*
@@ -49,6 +55,15 @@ export const slide = () => {
   };
 
   let interval = getInterval(); // interval 등록
+
+  const disableButtonTemp = (button) => {
+    isButtonDisabled = 1;
+    button.disabled = 1;
+    setTimeout(() => {
+      isButtonDisabled = 0;
+      button.disabled = 0;
+    }, 1000);
+  };
 };
 
 // ----------------------------------------------------------------------------------------
