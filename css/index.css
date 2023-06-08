@@ -152,7 +152,7 @@ section.inner {
 /* filter - form */
 .filter-form {
   display: flex;
-  margin-bottom: 60px;
+  margin-bottom: 10px;
 }
 
 .filter {
@@ -351,3 +351,21 @@ section.inner {
   margin-top: 10px;
   font-size: 24px;
 }
+
+.recent-search-item-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+
+  width: 1280px;
+  margin-bottom: 50px;
+}
+
+.search-item-box {
+  margin-right: 15px;
+}
+
+search-delete-btn {
+  background-color: transparent;
+}
+

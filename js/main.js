@@ -184,10 +184,68 @@ makeMovieList(data);
 
 // event listener
 //검색기능
+let query;
 searchButton.addEventListener("click", () => {
-  const query = searchInput.value;
+  query = searchInput.value;
   showData(query);
+  addSearchItem(query);
 });
+
+// 최근 검색어 저장하기
+let searchedItems;
+const addSearchItem = (keyword) => {
+  const searchedItemFromDb = JSON.parse(localStorage.getItem("searchKeyword"));
+  const searchItemId =
+    searchedItemFromDb?.[searchedItemFromDb.length - 1]?.searchId + 1 || 1;
+  const newsearchedItems = { searchItem: keyword, searchId: searchItemId };
+
+  searchedItems = searchedItemFromDb
+    ? [...searchedItemFromDb, newsearchedItems]
+    : [newsearchedItems];
+  window.localStorage.setItem("searchKeyword", JSON.stringify(searchedItems));
+  renderSearchItem(searchedItems);
+};
+
+// 최근 검색어 그리기
+const renderSearchItem = (array) => {
+  const searchItemContainer = document.querySelector(
+    ".recent-search-item-container"
+  );
+  searchItemContainer.innerHTML = "";
+  array.forEach((item) => {
+    // console.log(item.searchId);
+    let tempHtml = `<div class="search-item-box" >
+                    <span class="search-item">${item.searchItem}</span>
+                    <button class="search-delete-btn" id=${item.searchId}>🅧</button>
+                  </div>`;
+    searchItemContainer.insertAdjacentHTML("beforeend", tempHtml);
+  });
+
+  // 최근 검색어 삭제
+  const searchDeleteBtn = document.querySelectorAll(".search-delete-btn");
+  searchButton.style.background = "transparent";
+  const currentSearchItems = JSON.parse(localStorage.getItem("searchKeyword"));
+
+  searchDeleteBtn.forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+      const btnId = e.target.getAttribute("id");
+      console.log("btnId", btnId);
+      console.log("currentSearchItems", currentSearchItems);
+
+      const deletedsearchItem = currentSearchItems.filter(
+        (item) => item.searchId !== Number(btnId)
+      );
+
+      localStorage.setItem(
+        "searchKeyword",
+        JSON.stringify([...deletedsearchItem])
+      );
+      renderSearchItem(JSON.parse(localStorage.getItem("searchKeyword")));
+    });
+  });
+};
+
+renderSearchItem(JSON.parse(localStorage.getItem("searchKeyword")));
 
 searchInput.addEventListener("keypress", (event) => {
   if (event.key === "Enter") {
