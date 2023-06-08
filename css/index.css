@@ -67,7 +67,6 @@ body {
   border-radius: 40px;
   margin: 0 auto;
   overflow: hidden;
-  cursor: pointer;
   position: relative;
 }
 /* .slide-img::before {
@@ -311,7 +310,7 @@ section.inner {
   border-radius: 40px;
   width: 200px;
   height: 60px;
-  font-size: 24px;
+  font-size: 22px;
   background-color: royalblue;
   left: 50%;
   transform: translateX(-50%);

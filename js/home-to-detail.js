@@ -1,6 +1,6 @@
 export const toDetail = () => {
   //상단부 슬라이드 영화카드 클릭시
-  const slideMovieCards = document.querySelectorAll(".slide-img");
+  const slideMovieCards = document.querySelectorAll(".go-detail");
   slideMovieCards.forEach((v) => {
     v.addEventListener("click", () => {
       const id = v.getAttribute("data-id");
