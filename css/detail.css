@@ -3,6 +3,8 @@
   font-family: "sofia-pro", sans-serif;
   font-weight: 400;
   color: white;
+  word-wrap: break-word;
+  word-break: keep-all;
 }
 
 button {
@@ -346,6 +348,10 @@ section.similar {
 .movie-card .card-poster {
   border-radius: 10px;
   overflow: hidden;
+}
+
+.movie-card .card-star {
+  margin-top: 10px;
 }
 
 .card-poster img {

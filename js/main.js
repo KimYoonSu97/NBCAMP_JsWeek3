@@ -15,16 +15,47 @@ let viewLikeNum;
 //좋아요기능 //웹에 바로반영됨
 const likeFunction = () => {
   let likeFunc = document.querySelectorAll(".like-btn");
+
   likeFunc.forEach((btn) => {
     let likeNum = btn.querySelector(".like-num");
-    let likeCount = likeNum.innerText;
-
+    // console.log(movieId);
     btn.addEventListener("click", function () {
+      let movieId = "like" + btn.getAttribute("data-id");
+      let likeCount = JSON.parse(localStorage.getItem(movieId));
+      console.log(likeCount);
       likeCount++;
       likeNum.innerText = likeCount;
-      let movieId = "like" + btn.getAttribute("data-id");
+      console.log(btn.parentElement.getAttribute("class"));
+      let slideMovie = document.querySelectorAll(".slide");
+      let cardMovie = document.querySelectorAll(".movie-card");
+
+      //하단 영화카드 좋아요 시 상단 슬라이드에 있다면 똑같이 적용해라.
+      if (btn.parentElement.getAttribute("class") === "slide-img") {
+        console.log("슬라이드를 눌렀습니다.");
+        for (let i = 0; i < cardMovie.length; i++) {
+          if (
+            cardMovie[i].getAttribute("data-id") === btn.getAttribute("data-id")
+          ) {
+            console.log("카드에도 적용했습니다.");
+            cardMovie[i].querySelector(".like-num").innerText = likeCount;
+          }
+        }
+      } else {
+        console.log("카드를 눌렀습니다.");
+        for (let i = 0; i < slideMovie.length; i++) {
+          if (
+            likeFunc[i].getAttribute("data-id") === btn.getAttribute("data-id")
+          ) {
+            console.log("슬라이드에도 적용했습니다.");
+            likeFunc[i].querySelector(".like-num").innerText = likeCount;
+          }
+        }
+      }
+
       let NewLikecount = likeCount;
       window.localStorage.setItem(movieId, JSON.stringify(NewLikecount));
+
+      likeCount = JSON.parse(localStorage.getItem(movieId));
     });
   });
 };
@@ -71,19 +102,17 @@ const makeSlideMovieList = () => {
       viewLikeNum = 0;
     }
     //평점 하트로 보여주기
-    let starImage = '🤍🤍🤍🤍🤍';
+    let starImage = "🤍🤍🤍🤍🤍";
     const showStarImage = () => {
-
       if (2 <= movie.vote_average && movie.vote_average < 4) {
-        starImage = '💛🤍🤍🤍🤍';
+        starImage = "💛🤍🤍🤍🤍";
       } else if (4 <= movie.vote_average && movie.vote_average < 6) {
-        starImage = '💛💛🤍🤍🤍';
+        starImage = "💛💛🤍🤍🤍";
       } else if (6 <= movie.vote_average && movie.vote_average < 8) {
-        starImage = '💛💛💛🤍🤍';
+        starImage = "💛💛💛🤍🤍";
       } else if (8 <= movie.vote_average && movie.vote_average <= 10) {
-        starImage = '💛💛💛💛🤍';
+        starImage = "💛💛💛💛🤍";
       }
-
     };
     showStarImage();
 
@@ -111,7 +140,6 @@ const makeSlideMovieList = () => {
   const slideImgHover = document.querySelectorAll(".slide-img");
 
   MovieCardimgBtn(slideImgHover);
-  likeFunction();
   slide();
 };
 
@@ -130,19 +158,17 @@ const makeMovieList = (data, query) => {
       viewLikeNum = 0;
     }
     //평점 하트로 보여주기
-    let starImage = '🤍🤍🤍🤍🤍';
+    let starImage = "🤍🤍🤍🤍🤍";
     const showStarImage = () => {
-
       if (2 <= movie.vote_average && movie.vote_average < 4) {
-        starImage = '💛🤍🤍🤍🤍';
+        starImage = "💛🤍🤍🤍🤍";
       } else if (4 <= movie.vote_average && movie.vote_average < 6) {
-        starImage = '💛💛🤍🤍🤍';
+        starImage = "💛💛🤍🤍🤍";
       } else if (6 <= movie.vote_average && movie.vote_average < 8) {
-        starImage = '💛💛💛🤍🤍';
+        starImage = "💛💛💛🤍🤍";
       } else if (8 <= movie.vote_average && movie.vote_average <= 10) {
-        starImage = '💛💛💛💛🤍';
+        starImage = "💛💛💛💛🤍";
       }
-
     };
     showStarImage();
 
@@ -166,7 +192,6 @@ const makeMovieList = (data, query) => {
   const BottomimgHover = document.querySelectorAll(".card-poster");
 
   MovieCardimgBtn(BottomimgHover);
-  likeFunction();
   toDetail();
 };
 
@@ -183,6 +208,7 @@ const showData = (query) => {
 // entrypoint
 makeSlideMovieList(data);
 makeMovieList(data);
+likeFunction();
 
 // event listener
 //검색기능
