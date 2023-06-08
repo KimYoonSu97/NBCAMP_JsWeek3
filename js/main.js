@@ -10,6 +10,7 @@ const voteBtn = document.querySelector(".vote");
 const originalBtn = document.querySelector(".filter-name");
 
 const data = await getTopRatedMovies();
+let viewLikeNum;
 
 //좋아요기능 //웹에 바로반영됨
 const likeFunction = () => {
@@ -17,10 +18,14 @@ const likeFunction = () => {
   likeFunc.forEach((btn) => {
     let likeNum = btn.querySelector(".like-num");
     let likeCount = likeNum.innerText;
-    console.log(likeCount);
+
     btn.addEventListener("click", function () {
       likeCount++;
       likeNum.innerText = likeCount;
+      let movieId = "like" + btn.getAttribute("data-id");
+      let NewLikecount = likeCount;
+      // // let
+      window.localStorage.setItem(movieId, JSON.stringify(NewLikecount));
     });
   });
 };
@@ -85,13 +90,22 @@ const makeMovieList = (data, query) => {
   if (data.length == 0) {
     cardContainer.innerHTML += `죄송합니다. '${query}'(으)로 검색되는 영화가 존재하지 않습니다.`;
   }
+
   //div card-container (하단부분)
   data.forEach((movie) => {
+    let movieId = "like" + movie.id;
+    let loadLike = JSON.parse(localStorage.getItem(movieId));
+
+    viewLikeNum = loadLike;
+    if (!viewLikeNum) {
+      viewLikeNum = 0;
+    }
+
     const cardContainer = document.querySelector(".card-container");
     cardContainer.innerHTML += `<div data-id="${movie.id}" class="movie-card">
       <div class="card-poster" >
       <div class="view-btn"></div>
-      <div class="like-btn" ><p>좋아요</p> <p class="like-num">0</p></div>
+      <div class="like-btn" data-id="${movie.id}" ><p>좋아요</p> <p class="like-num">${viewLikeNum}</p></div>
       <div class="go-detail" data-id="${movie.id}"><p> 상세정보보기</p> </div>
       <img
       src="https://image.tmdb.org/t/p/w500/${movie.poster_path}"
@@ -102,7 +116,8 @@ const makeMovieList = (data, query) => {
       <div class="card-rating">${movie.vote_average}</div>
     </div>`;
   });
-
+  MovieCardimgBtn();
+  likeFunction();
   toDetail();
 };
 
@@ -114,22 +129,17 @@ const showData = (query) => {
 
   cardContainer.innerHTML = "";
   makeMovieList(filteredData, query);
-  MovieCardimgBtn();
-  likeFunction();
 };
 
 // entrypoint
 makeSlideMovieList(data);
 makeMovieList(data);
-MovieCardimgBtn();
-likeFunction();
+
 // event listener
 //검색기능
 searchButton.addEventListener("click", () => {
   const query = searchInput.value;
   showData(query);
-  MovieCardimgBtn();
-  likeFunction();
 });
 
 searchInput.addEventListener("keypress", (event) => {
@@ -144,33 +154,15 @@ popularityBtn.addEventListener("click", () => {
   const sortedData = [...data].sort((a, b) => b.popularity - a.popularity);
   cardContainer.innerHTML = "";
   makeMovieList(sortedData);
-  MovieCardimgBtn();
-  likeFunction();
 });
 // 평점순 정렬기능
 voteBtn.addEventListener("click", () => {
   const sortedData = [...data].sort((a, b) => b.vote_average - a.vote_average);
   cardContainer.innerHTML = "";
   makeMovieList(sortedData);
-  MovieCardimgBtn();
-  likeFunction();
 });
 //정렬 되돌리기
 originalBtn.addEventListener("click", () => {
   cardContainer.innerHTML = "";
   makeMovieList(data);
-  MovieCardimgBtn();
-  likeFunction();
 });
-
-// console.log(data);
-// let likeNum = document.querySelectorAll(".like-num");
-// likeNum.forEach((value) => {
-//   console.log(value);
-
-//   let NewLikecount = { like: value.innerText };
-//   console.log(NewLikecount);
-//   // // let
-//   // window.localStorage.setItem("")
-// });
-// console.log(likeNum);
