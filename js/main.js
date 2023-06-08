@@ -215,8 +215,37 @@ likeFunction();
 let query;
 searchButton.addEventListener("click", () => {
   query = searchInput.value;
-  showData(query);
-  addSearchItem(query);
+  if (query.length === 0) {
+    cardContainer.innerHTML = `검색어가 입력되지 않았습니다.`;
+  } else {
+    showData(query);
+    addSearchItem(query);
+  }
+});
+
+//인기순 정렬기능
+popularityBtn.addEventListener("click", () => {
+  const sortedData = [...data].sort((a, b) => b.popularity - a.popularity);
+  cardContainer.innerHTML = "";
+  makeMovieList(sortedData);
+});
+// 평점순 정렬기능
+voteBtn.addEventListener("click", () => {
+  const sortedData = [...data].sort((a, b) => b.vote_average - a.vote_average);
+  cardContainer.innerHTML = "";
+  makeMovieList(sortedData);
+});
+//정렬 되돌리기
+originalBtn.addEventListener("click", () => {
+  cardContainer.innerHTML = "";
+  makeMovieList(data);
+});
+
+searchInput.addEventListener("keypress", (event) => {
+  if (event.key === "Enter") {
+    event.preventDefault();
+    searchButton.click();
+  }
 });
 
 // 최근 검색어 저장하기
@@ -244,7 +273,7 @@ const renderSearchItem = (array) => {
     // console.log(item.searchId);
     let tempHtml = `<div class="search-item-box" >
                     <span class="search-item">${item.searchItem}</span>
-                    <button class="search-delete-btn" id=${item.searchId}>🅧</button>
+                    <button class="search-delete-btn" id=${item.searchId}>𝗫</button>
                   </div>`;
     searchItemContainer.insertAdjacentHTML("beforeend", tempHtml);
   });
@@ -274,28 +303,3 @@ const renderSearchItem = (array) => {
 };
 
 renderSearchItem(JSON.parse(localStorage.getItem("searchKeyword")));
-
-searchInput.addEventListener("keypress", (event) => {
-  if (event.key === "Enter") {
-    event.preventDefault();
-    searchButton.click();
-  }
-});
-
-//인기순 정렬기능
-popularityBtn.addEventListener("click", () => {
-  const sortedData = [...data].sort((a, b) => b.popularity - a.popularity);
-  cardContainer.innerHTML = "";
-  makeMovieList(sortedData);
-});
-// 평점순 정렬기능
-voteBtn.addEventListener("click", () => {
-  const sortedData = [...data].sort((a, b) => b.vote_average - a.vote_average);
-  cardContainer.innerHTML = "";
-  makeMovieList(sortedData);
-});
-//정렬 되돌리기
-originalBtn.addEventListener("click", () => {
-  cardContainer.innerHTML = "";
-  makeMovieList(data);
-});
