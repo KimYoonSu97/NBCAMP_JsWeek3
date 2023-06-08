@@ -102,16 +102,18 @@ const makeSlideMovieList = () => {
       viewLikeNum = 0;
     }
     //평점 하트로 보여주기
-    let starImage = "🤍🤍🤍🤍🤍";
+
+    let starImage = '평점: 🤍🤍🤍🤍🤍';
     const showStarImage = () => {
       if (2 <= movie.vote_average && movie.vote_average < 4) {
-        starImage = "💛🤍🤍🤍🤍";
+
+        starImage = '평점: 💛🤍🤍🤍🤍';
       } else if (4 <= movie.vote_average && movie.vote_average < 6) {
-        starImage = "💛💛🤍🤍🤍";
+        starImage = '평점: 💛💛🤍🤍🤍';
       } else if (6 <= movie.vote_average && movie.vote_average < 8) {
-        starImage = "💛💛💛🤍🤍";
+        starImage = '평점: 💛💛💛🤍🤍';
       } else if (8 <= movie.vote_average && movie.vote_average <= 10) {
-        starImage = "💛💛💛💛🤍";
+        starImage = '평점: 💛💛💛💛🤍';
       }
     };
     showStarImage();
@@ -130,8 +132,7 @@ const makeSlideMovieList = () => {
           </div>
           <div class="slide-info">
             <div class="title">${movie.title}</div>
-            <div class="card-star">${starImage}</div>
-            <div class="rating">${movie.vote_average}</div>
+            <div class="rating">${starImage}</div>
           </div>
         </div>
       </div>`;
@@ -158,16 +159,21 @@ const makeMovieList = (data, query) => {
       viewLikeNum = 0;
     }
     //평점 하트로 보여주기
-    let starImage = "🤍🤍🤍🤍🤍";
+
+
+
+    let starImage = '평점: 🤍🤍🤍🤍🤍';
     const showStarImage = () => {
       if (2 <= movie.vote_average && movie.vote_average < 4) {
-        starImage = "💛🤍🤍🤍🤍";
+
+
+        starImage = '평점: 💛🤍🤍🤍🤍';
       } else if (4 <= movie.vote_average && movie.vote_average < 6) {
-        starImage = "💛💛🤍🤍🤍";
+        starImage = '평점: 💛💛🤍🤍🤍';
       } else if (6 <= movie.vote_average && movie.vote_average < 8) {
-        starImage = "💛💛💛🤍🤍";
+        starImage = '평점: 💛💛💛🤍🤍';
       } else if (8 <= movie.vote_average && movie.vote_average <= 10) {
-        starImage = "💛💛💛💛🤍";
+        starImage = '평점: 💛💛💛💛🤍';
       }
     };
     showStarImage();
@@ -184,8 +190,7 @@ const makeMovieList = (data, query) => {
       />
       </div>
       <div class="card-title">${movie.title}</div>
-      <div class="card-star">${starImage}</div>
-      <div class="card-rating">${movie.vote_average}</div>
+      <div class="card-rating">${starImage}</div>
     </div>`;
   });
 
@@ -212,10 +217,68 @@ likeFunction();
 
 // event listener
 //검색기능
+let query;
 searchButton.addEventListener("click", () => {
-  const query = searchInput.value;
+  query = searchInput.value;
   showData(query);
+  addSearchItem(query);
 });
+
+// 최근 검색어 저장하기
+let searchedItems;
+const addSearchItem = (keyword) => {
+  const searchedItemFromDb = JSON.parse(localStorage.getItem("searchKeyword"));
+  const searchItemId =
+    searchedItemFromDb?.[searchedItemFromDb.length - 1]?.searchId + 1 || 1;
+  const newsearchedItems = { searchItem: keyword, searchId: searchItemId };
+
+  searchedItems = searchedItemFromDb
+    ? [...searchedItemFromDb, newsearchedItems]
+    : [newsearchedItems];
+  window.localStorage.setItem("searchKeyword", JSON.stringify(searchedItems));
+  renderSearchItem(searchedItems);
+};
+
+// 최근 검색어 그리기
+const renderSearchItem = (array) => {
+  const searchItemContainer = document.querySelector(
+    ".recent-search-item-container"
+  );
+  searchItemContainer.innerHTML = "";
+  array.forEach((item) => {
+    // console.log(item.searchId);
+    let tempHtml = `<div class="search-item-box" >
+                    <span class="search-item">${item.searchItem}</span>
+                    <button class="search-delete-btn" id=${item.searchId}>🅧</button>
+                  </div>`;
+    searchItemContainer.insertAdjacentHTML("beforeend", tempHtml);
+  });
+
+  // 최근 검색어 삭제
+  const searchDeleteBtn = document.querySelectorAll(".search-delete-btn");
+  searchButton.style.background = "transparent";
+  const currentSearchItems = JSON.parse(localStorage.getItem("searchKeyword"));
+
+  searchDeleteBtn.forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+      const btnId = e.target.getAttribute("id");
+      console.log("btnId", btnId);
+      console.log("currentSearchItems", currentSearchItems);
+
+      const deletedsearchItem = currentSearchItems.filter(
+        (item) => item.searchId !== Number(btnId)
+      );
+
+      localStorage.setItem(
+        "searchKeyword",
+        JSON.stringify([...deletedsearchItem])
+      );
+      renderSearchItem(JSON.parse(localStorage.getItem("searchKeyword")));
+    });
+  });
+};
+
+renderSearchItem(JSON.parse(localStorage.getItem("searchKeyword")));
 
 searchInput.addEventListener("keypress", (event) => {
   if (event.key === "Enter") {
