@@ -24,18 +24,15 @@ const likeFunction = () => {
       likeNum.innerText = likeCount;
       let movieId = "like" + btn.getAttribute("data-id");
       let NewLikecount = likeCount;
-      // // let
       window.localStorage.setItem(movieId, JSON.stringify(NewLikecount));
     });
   });
 };
 
 // 하단 카드 이미지 호버기능 함수
-const MovieCardimgBtn = function () {
-  const imgHover = document.querySelectorAll(".card-poster");
-
+const MovieCardimgBtn = function (hoverArea) {
   // 마우스 오버 이벤트
-  imgHover.forEach((imgTag) => {
+  hoverArea.forEach((imgTag) => {
     const goToDetail = imgTag.querySelector(".go-detail");
     const viewBtn = imgTag.querySelector(".view-btn");
     const likeBtn = imgTag.querySelector(".like-btn");
@@ -47,7 +44,7 @@ const MovieCardimgBtn = function () {
   });
 
   // 마우스 아웃 이벤트
-  imgHover.forEach((imgTag) => {
+  hoverArea.forEach((imgTag) => {
     const goToDetail = imgTag.querySelector(".go-detail");
     const viewBtn = imgTag.querySelector(".view-btn");
     const likeBtn = imgTag.querySelector(".like-btn");
@@ -66,10 +63,37 @@ const makeSlideMovieList = () => {
 
   for (let i = 0; i < 3; i++) {
     let movie = sortedData[i];
+    let movieId = "like" + movie.id;
+    let loadLike = JSON.parse(localStorage.getItem(movieId));
+
+    viewLikeNum = loadLike;
+    if (!viewLikeNum) {
+      viewLikeNum = 0;
+    }
+    //평점 하트로 보여주기
+    let starImage = '평점: 🤍🤍🤍🤍🤍';
+    const showStarImage = () => {
+
+      if (2 <= movie.vote_average && movie.vote_average < 4) {
+        starImage = '평점: 💛🤍🤍🤍🤍';
+      } else if (4 <= movie.vote_average && movie.vote_average < 6) {
+        starImage = '평점: 💛💛🤍🤍🤍';
+      } else if (6 <= movie.vote_average && movie.vote_average < 8) {
+        starImage = '평점: 💛💛💛🤍🤍';
+      } else if (8 <= movie.vote_average && movie.vote_average <= 10) {
+        starImage = '평점: 💛💛💛💛🤍';
+      }
+
+    };
+    showStarImage();
+
     const slideInner = document.querySelector(".slide-inner");
     slideInner.innerHTML += `<div data-id="${movie.id}" class="slide">
         <div class="slide-num">
-          <div class="slide-img" data-id="${movie.id}">
+          <div class="slide-img">
+          <div class="view-btn"></div>
+          <div class="like-btn" data-id="${movie.id}" ><p>좋아요</p> <p class="like-num">${viewLikeNum}</p></div>
+          <div class="go-detail" data-id="${movie.id}"><p> 상세정보보기</p> </div>
             <img
               src="https://image.tmdb.org/t/p/w500/${movie.poster_path}"
               alt="name poster"
@@ -77,12 +101,16 @@ const makeSlideMovieList = () => {
           </div>
           <div class="slide-info">
             <div class="title">${movie.title}</div>
-            <div class="rating">${movie.vote_average}</div>
+            <div class="rating">${starImage}</div>
           </div>
         </div>
       </div>`;
   }
 
+  const slideImgHover = document.querySelectorAll(".slide-img");
+
+  MovieCardimgBtn(slideImgHover);
+  likeFunction();
   slide();
 };
 
@@ -100,6 +128,22 @@ const makeMovieList = (data, query) => {
     if (!viewLikeNum) {
       viewLikeNum = 0;
     }
+    //평점 하트로 보여주기
+    let starImage = '평점: 🤍🤍🤍🤍🤍';
+    const showStarImage = () => {
+
+      if (2 <= movie.vote_average && movie.vote_average < 4) {
+        starImage = '평점: 💛🤍🤍🤍🤍';
+      } else if (4 <= movie.vote_average && movie.vote_average < 6) {
+        starImage = '평점: 💛💛🤍🤍🤍';
+      } else if (6 <= movie.vote_average && movie.vote_average < 8) {
+        starImage = '평점: 💛💛💛🤍🤍';
+      } else if (8 <= movie.vote_average && movie.vote_average <= 10) {
+        starImage = '평점: 💛💛💛💛🤍';
+      }
+
+    };
+    showStarImage();
 
     const cardContainer = document.querySelector(".card-container");
     cardContainer.innerHTML += `<div data-id="${movie.id}" class="movie-card">
@@ -113,10 +157,13 @@ const makeMovieList = (data, query) => {
       />
       </div>
       <div class="card-title">${movie.title}</div>
-      <div class="card-rating">${movie.vote_average}</div>
+      <div class="card-rating">${starImage}</div>
     </div>`;
   });
-  MovieCardimgBtn();
+
+  const BottomimgHover = document.querySelectorAll(".card-poster");
+
+  MovieCardimgBtn(BottomimgHover);
   likeFunction();
   toDetail();
 };

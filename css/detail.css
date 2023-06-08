@@ -318,3 +318,48 @@ html {
     row-gap: 20px;
   }
 }
+
+.similar-movie-title {
+  text-align: center;
+  margin-top: 140px;
+  font-size: 80px;
+}
+
+section.similar {
+  width: 1280px;
+  margin: 80px auto 130px;
+}
+
+.card-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 290px));
+  gap: 40px;
+}
+.movie-card {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  margin-top: 30px;
+  overflow: hidden;
+}
+
+.movie-card .card-poster {
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.card-poster img {
+  width: 100%;
+  margin: 0 auto;
+  object-fit: cover;
+}
+
+.movie-card .card-title {
+  margin-top: 30px;
+  font-size: 32px;
+  font-weight: 700;
+}
+.movie-card .card-rating {
+  margin-top: 10px;
+  font-size: 24px;
+}
