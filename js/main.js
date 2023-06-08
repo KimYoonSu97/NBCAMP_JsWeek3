@@ -284,6 +284,7 @@ searchButton.addEventListener("click", () => {
   } else {
     showData(query);
     addSearchItem(query);
+    goToScroll();
   }
 });
 
@@ -316,13 +317,23 @@ searchInput.addEventListener("keypress", (event) => {
 let searchedItems;
 const addSearchItem = (keyword) => {
   const searchedItemFromDb = JSON.parse(localStorage.getItem("searchKeyword"));
-  const searchItemId =
-    searchedItemFromDb?.[searchedItemFromDb.length - 1]?.searchId + 1 || 1;
+  const searchItemId = searchedItemFromDb?.[0]?.searchId + 1 || 1;
   const newsearchedItems = { searchItem: keyword, searchId: searchItemId };
 
   searchedItems = searchedItemFromDb
-    ? [...searchedItemFromDb, newsearchedItems]
+    ? [newsearchedItems, ...searchedItemFromDb]
     : [newsearchedItems];
+
+  window.localStorage.setItem("searchKeyword", JSON.stringify(searchedItems));
+  renderSearchItem(searchedItems);
+
+  searchedItems = searchedItemFromDb
+    ? [newsearchedItems, ...searchedItemFromDb]
+    : [newsearchedItems];
+
+  if (searchedItems.length >= 6) {
+    searchedItems.splice(5, 1);
+  }
   window.localStorage.setItem("searchKeyword", JSON.stringify(searchedItems));
   renderSearchItem(searchedItems);
 };
@@ -367,3 +378,8 @@ const renderSearchItem = (array) => {
 };
 
 renderSearchItem(JSON.parse(localStorage.getItem("searchKeyword")));
+
+const goToScroll = function () {
+  const location = cardContainer.offsetTop;
+  window.scrollTo({ top: location, behavior: "smooth" });
+};
