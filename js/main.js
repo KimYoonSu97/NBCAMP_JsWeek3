@@ -11,11 +11,14 @@ const originalBtn = document.querySelector(".filter-name");
 const inner = document.querySelector(".inner");
 
 const data = await getTopRatedMovies();
+
 let viewLikeNum;
+let query;
+let searchedItems;
 
 //좋아요기능 //웹에 바로반영됨
 
-const likeFunction = function () {
+const likeFunction = () => {
   let likeFunc = document.querySelectorAll(".like-btn");
 
   likeFunc.forEach((btn) => {
@@ -24,37 +27,26 @@ const likeFunction = function () {
     btn.addEventListener("click", function () {
       let movieId = "like" + btn.getAttribute("data-id");
       let likeCount = JSON.parse(localStorage.getItem(movieId));
-      console.log(likeCount);
       likeCount++;
       likeNum.innerText = likeCount;
-      console.log(btn.parentElement.getAttribute("class"));
       let slideMovie = document.querySelectorAll(".slide");
       let cardMovie = document.querySelectorAll(".movie-card");
 
-      let NewLikecount = likeCount;
-      window.localStorage.setItem(movieId, JSON.stringify(NewLikecount));
+      let NewLikeCount = likeCount;
+      window.localStorage.setItem(movieId, JSON.stringify(NewLikeCount));
 
       for (let i = 0; i < slideMovie.length; i++) {
         if (
           slideMovie[i].getAttribute("data-id") === btn.getAttribute("data-id")
         ) {
-          console.log("슬라이드에도 적용했습니다.");
           slideMovie[i].querySelector(".like-num").innerText = likeCount;
         }
       }
-
-      //하단 영화카드 좋아요 시 상단 슬라이드에 있다면 똑같이 적용해라.
-      // if (btn.parentElement.getAttribute("class") === "slide-img") {
-      //   console.log("슬라이드를 눌렀습니다.");
-      //   likeCount++;
-      //   likeNum.innerText = likeCount;
-
-      // }
     });
   });
 };
 
-const likeFunctionSlide = function () {
+const likeFunctionSlide = () => {
   let likeFunc = document.querySelectorAll(".like-btn-slide");
 
   likeFunc.forEach((btn) => {
@@ -63,55 +55,39 @@ const likeFunctionSlide = function () {
     btn.addEventListener("click", function () {
       let movieId = "like" + btn.getAttribute("data-id");
       let likeCount = JSON.parse(localStorage.getItem(movieId));
-      console.log(likeCount);
+      // console.log(likeCount);
       likeCount++;
       likeNum.innerText = likeCount;
-      console.log(btn.parentElement.getAttribute("class"));
+      // console.log(btn.parentElement.getAttribute("class"));
       let slideMovie = document.querySelectorAll(".slide");
       let cardMovie = document.querySelectorAll(".movie-card");
 
-      let NewLikecount = likeCount;
-      window.localStorage.setItem(movieId, JSON.stringify(NewLikecount));
+      let NewLikeCount = likeCount;
+      window.localStorage.setItem(movieId, JSON.stringify(NewLikeCount));
 
       for (let i = 0; i < slideMovie.length; i++) {
         if (
           cardMovie[i].getAttribute("data-id") === btn.getAttribute("data-id")
         ) {
-          console.log("슬라이드에도 적용했습니다.");
           cardMovie[i].querySelector(".like-num").innerText = likeCount;
         }
       }
-
-      //하단 영화카드 좋아요 시 상단 슬라이드에 있다면 똑같이 적용해라.
-      // if (btn.parentElement.getAttribute("class") === "slide-img") {
-      //   console.log("슬라이드를 눌렀습니다.");
-      //   likeCount++;
-      //   likeNum.innerText = likeCount;
-
-      // }
     });
   });
 };
 
-//상단 카드 이미지 호버기능 함수
-const MovieSlideimgBtn = function (hoverArea) {
-  // 마우스 오버 이벤트
+const makeHoverImageBtn = (hoverArea, likeBtnClassName) => {
   hoverArea.forEach((imgTag) => {
     const goToDetail = imgTag.querySelector(".go-detail");
     const viewBtn = imgTag.querySelector(".view-btn");
-    const likeBtn = imgTag.querySelector(".like-btn-slide");
+    const likeBtn = imgTag.querySelector(likeBtnClassName);
+
     imgTag.addEventListener("mouseover", (event) => {
       likeBtn.style.display = "flex";
       goToDetail.style.display = "flex";
       viewBtn.style.display = "block";
     });
-  });
 
-  // 마우스 아웃 이벤트
-  hoverArea.forEach((imgTag) => {
-    const goToDetail = imgTag.querySelector(".go-detail");
-    const viewBtn = imgTag.querySelector(".view-btn");
-    const likeBtn = imgTag.querySelector(".like-btn-slide");
     imgTag.addEventListener("mouseout", (event) => {
       likeBtn.style.display = "none";
       goToDetail.style.display = "none";
@@ -120,31 +96,19 @@ const MovieSlideimgBtn = function (hoverArea) {
   });
 };
 
-// 하단 카드 이미지 호버기능 함수
-const MovieCardimgBtn = function (hoverArea) {
-  // 마우스 오버 이벤트
-  hoverArea.forEach((imgTag) => {
-    const goToDetail = imgTag.querySelector(".go-detail");
-    const viewBtn = imgTag.querySelector(".view-btn");
-    const likeBtn = imgTag.querySelector(".like-btn");
-    imgTag.addEventListener("mouseover", (event) => {
-      likeBtn.style.display = "flex";
-      goToDetail.style.display = "flex";
-      viewBtn.style.display = "block";
-    });
-  });
+const showStarImage = (movie) => {
+  let starImage = "평점: 🤍🤍🤍🤍🤍";
 
-  // 마우스 아웃 이벤트
-  hoverArea.forEach((imgTag) => {
-    const goToDetail = imgTag.querySelector(".go-detail");
-    const viewBtn = imgTag.querySelector(".view-btn");
-    const likeBtn = imgTag.querySelector(".like-btn");
-    imgTag.addEventListener("mouseout", (event) => {
-      likeBtn.style.display = "none";
-      goToDetail.style.display = "none";
-      viewBtn.style.display = "none";
-    });
-  });
+  if (2 <= movie.vote_average && movie.vote_average < 4) {
+    starImage = "평점: 💛🤍🤍🤍🤍";
+  } else if (4 <= movie.vote_average && movie.vote_average < 6) {
+    starImage = "평점: 💛💛🤍🤍🤍";
+  } else if (6 <= movie.vote_average && movie.vote_average < 8) {
+    starImage = "평점: 💛💛💛🤍🤍";
+  } else if (8 <= movie.vote_average && movie.vote_average <= 10) {
+    starImage = "평점: 💛💛💛💛🤍";
+  }
+  return starImage;
 };
 
 //데이터 화면에 출력하기
@@ -160,21 +124,6 @@ const makeSlideMovieList = () => {
     if (!viewLikeNum) {
       viewLikeNum = 0;
     }
-    //평점 하트로 보여주기
-
-    let starImage = "평점: 🤍🤍🤍🤍🤍";
-    const showStarImage = () => {
-      if (2 <= movie.vote_average && movie.vote_average < 4) {
-        starImage = "평점: 💛🤍🤍🤍🤍";
-      } else if (4 <= movie.vote_average && movie.vote_average < 6) {
-        starImage = "평점: 💛💛🤍🤍🤍";
-      } else if (6 <= movie.vote_average && movie.vote_average < 8) {
-        starImage = "평점: 💛💛💛🤍🤍";
-      } else if (8 <= movie.vote_average && movie.vote_average <= 10) {
-        starImage = "평점: 💛💛💛💛🤍";
-      }
-    };
-    showStarImage();
 
     const slideInner = document.querySelector(".slide-inner");
     slideInner.innerHTML += `<div data-id="${movie.id}" class="slide">
@@ -202,12 +151,12 @@ const makeSlideMovieList = () => {
   });
   const slideImgHover = document.querySelectorAll(".slide-img");
 
-  MovieSlideimgBtn(slideImgHover);
+  makeHoverImageBtn(slideImgHover, ".like-btn-slide");
   slide();
 };
 
 const makeMovieList = (data, query) => {
-  if (data.length == 0) {
+  if (!data[0]) {
     cardContainer.innerHTML += `죄송합니다. '${query}'(으)로 검색되는 영화가 존재하지 않습니다.`;
   }
 
@@ -220,22 +169,9 @@ const makeMovieList = (data, query) => {
     if (!viewLikeNum) {
       viewLikeNum = 0;
     }
+
     //평점 하트로 보여주기
-
-    let starImage = "평점: 🤍🤍🤍🤍🤍";
-    const showStarImage = () => {
-      if (2 <= movie.vote_average && movie.vote_average < 4) {
-        starImage = "평점: 💛🤍🤍🤍🤍";
-      } else if (4 <= movie.vote_average && movie.vote_average < 6) {
-        starImage = "평점: 💛💛🤍🤍🤍";
-      } else if (6 <= movie.vote_average && movie.vote_average < 8) {
-        starImage = "평점: 💛💛💛🤍🤍";
-      } else if (8 <= movie.vote_average && movie.vote_average <= 10) {
-        starImage = "평점: 💛💛💛💛🤍";
-      }
-    };
-    showStarImage();
-
+    const starImage = showStarImage(movie);
     const cardContainer = document.querySelector(".card-container");
     cardContainer.innerHTML += `<div data-id="${movie.id}" class="movie-card">
       <div class="card-poster" >
@@ -252,9 +188,9 @@ const makeMovieList = (data, query) => {
     </div>`;
   });
 
-  const BottomimgHover = document.querySelectorAll(".card-poster");
+  const BottomImgHover = document.querySelectorAll(".card-poster");
 
-  MovieCardimgBtn(BottomimgHover);
+  makeHoverImageBtn(BottomImgHover, ".like-btn");
   likeFunction();
   toDetail();
 };
@@ -272,15 +208,15 @@ const showData = (query) => {
 // entrypoint
 makeSlideMovieList(data);
 makeMovieList(data);
+
 // likeFunction();
 likeFunctionSlide();
 
 // event listener
 //검색기능
-let query;
 searchButton.addEventListener("click", () => {
   query = searchInput.value;
-  if (query.length === 0) {
+  if (!query) {
     cardContainer.innerHTML = `검색어가 입력되지 않았습니다.`;
   } else {
     showData(query);
@@ -315,9 +251,9 @@ searchInput.addEventListener("keypress", (event) => {
 });
 
 // 최근 검색어 저장하기
-let searchedItems;
 const addSearchItem = (keyword) => {
   const searchedItemFromDb = JSON.parse(localStorage.getItem("searchKeyword"));
+<<<<<<< Updated upstream
   const searchItemId = searchedItemFromDb?.[0]?.searchId + 1 || 1;
   const newsearchedItems = { searchItem: keyword, searchId: searchItemId };
 
@@ -335,6 +271,15 @@ const addSearchItem = (keyword) => {
   if (searchedItems.length >= 6) {
     searchedItems.splice(5, 1);
   }
+=======
+  const searchItemId =
+    searchedItemFromDb?.[searchedItemFromDb.length - 1]?.searchId + 1 || 1;
+  const newSearchedItems = { searchItem: keyword, searchId: searchItemId };
+
+  searchedItems = searchedItemFromDb
+    ? [...searchedItemFromDb, newSearchedItems]
+    : [newSearchedItems];
+>>>>>>> Stashed changes
   window.localStorage.setItem("searchKeyword", JSON.stringify(searchedItems));
   renderSearchItem(searchedItems);
 };
@@ -346,7 +291,6 @@ const renderSearchItem = (array) => {
   );
   searchItemContainer.innerHTML = "";
   array.forEach((item) => {
-    // console.log(item.searchId);
     let tempHtml = `<div class="search-item-box" >
                     <span class="search-item">${item.searchItem}</span>
                     <button class="search-delete-btn" id=${item.searchId}>𝗫</button>
@@ -356,22 +300,18 @@ const renderSearchItem = (array) => {
 
   // 최근 검색어 삭제
   const searchDeleteBtn = document.querySelectorAll(".search-delete-btn");
-  // searchButton.style.background = "transparent";
   const currentSearchItems = JSON.parse(localStorage.getItem("searchKeyword"));
 
   searchDeleteBtn.forEach((btn) => {
     btn.addEventListener("click", (e) => {
       const btnId = e.target.getAttribute("id");
-      console.log("btnId", btnId);
-      console.log("currentSearchItems", currentSearchItems);
-
-      const deletedsearchItem = currentSearchItems.filter(
+      const deletedSearchItem = currentSearchItems.filter(
         (item) => item.searchId !== Number(btnId)
       );
 
       localStorage.setItem(
         "searchKeyword",
-        JSON.stringify([...deletedsearchItem])
+        JSON.stringify([...deletedSearchItem])
       );
       renderSearchItem(JSON.parse(localStorage.getItem("searchKeyword")));
     });

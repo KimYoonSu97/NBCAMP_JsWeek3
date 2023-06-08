@@ -7,26 +7,30 @@ const options = {
   },
 };
 
-let movieTitle = document.querySelector(".movie-title");
-let moviePoster = document.querySelector(".movie-poster");
-let movieInfo = document.querySelector(".movie-info");
-let movieValue = movieInfo.querySelectorAll(".value");
-let overView = document.querySelector(".overview");
-let detailGenre = document.querySelector(".genre");
+const movieTitle = document.querySelector(".movie-title");
+const moviePoster = document.querySelector(".movie-poster");
+const movieInfo = document.querySelector(".movie-info");
+const movieValue = movieInfo.querySelectorAll(".value");
+const overView = document.querySelector(".overview");
+const detailGenre = document.querySelector(".genre");
 
-let tagLine = document.querySelector(".tag-line");
-let tagLineP = tagLine.querySelector("p");
-let tagLineDiv = tagLine.querySelector("div");
+const tagLine = document.querySelector(".tag-line");
+const tagLineP = tagLine.querySelector("p");
+const tagLineDiv = tagLine.querySelector("div");
 
-let moneyTable = document.querySelector(".money-table");
-let moneyTableInfo = moneyTable.querySelectorAll(".info");
-let imageFlex1 = document.querySelector(".imageFlex1");
-let imageFlex2 = document.querySelector(".imageFlex2");
-let imageFlex3 = document.querySelector(".imageFlex3");
+const moneyTable = document.querySelector(".money-table");
+const moneyTableInfo = moneyTable.querySelectorAll(".info");
+const imageFlex1 = document.querySelector(".imageFlex1");
+const imageFlex2 = document.querySelector(".imageFlex2");
+const imageFlex3 = document.querySelector(".imageFlex3");
 
 let id;
 
-function movieDetail() {
+const humanizeLocale = (numObj, locale) => {
+  return numObj.toLocaleString(locale);
+};
+
+const movieDetail = () => {
   const params = new URLSearchParams(window.location.search);
   id = params.get("id");
 
@@ -49,8 +53,8 @@ function movieDetail() {
       } = response;
       let productionName = production[0].name;
 
-      budget = budget.toLocaleString("ko-KR");
-      revenue = revenue.toLocaleString("ko-KR");
+      budget = humanizeLocale(budget, "ko-KR");
+      revenue = humanizeLocale(revenue, "ko-KR");
 
       let movieInfoVal = [popularity + " 점", release_date, productionName];
       let moneyInfoVal = [
@@ -114,7 +118,7 @@ function movieDetail() {
       }
     })
     .catch((err) => console.error(err));
-}
+};
 
 movieDetail();
 
