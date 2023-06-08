@@ -280,7 +280,7 @@ const renderSearchItem = (array) => {
 
   // 최근 검색어 삭제
   const searchDeleteBtn = document.querySelectorAll(".search-delete-btn");
-  searchButton.style.background = "transparent";
+  // searchButton.style.background = "transparent";
   const currentSearchItems = JSON.parse(localStorage.getItem("searchKeyword"));
 
   searchDeleteBtn.forEach((btn) => {

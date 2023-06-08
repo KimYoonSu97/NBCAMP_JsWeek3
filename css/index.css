@@ -371,8 +371,5 @@ section.inner {
   background-color: transparent;
   border: none;
   font-size: 15px;
-}
-
-.search-delete-btn:hover {
   cursor: pointer;
 }
