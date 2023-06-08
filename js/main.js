@@ -103,17 +103,16 @@ const makeSlideMovieList = () => {
     }
     //평점 하트로 보여주기
 
-    let starImage = '평점: 🤍🤍🤍🤍🤍';
+    let starImage = "평점: 🤍🤍🤍🤍🤍";
     const showStarImage = () => {
       if (2 <= movie.vote_average && movie.vote_average < 4) {
-
-        starImage = '평점: 💛🤍🤍🤍🤍';
+        starImage = "평점: 💛🤍🤍🤍🤍";
       } else if (4 <= movie.vote_average && movie.vote_average < 6) {
-        starImage = '평점: 💛💛🤍🤍🤍';
+        starImage = "평점: 💛💛🤍🤍🤍";
       } else if (6 <= movie.vote_average && movie.vote_average < 8) {
-        starImage = '평점: 💛💛💛🤍🤍';
+        starImage = "평점: 💛💛💛🤍🤍";
       } else if (8 <= movie.vote_average && movie.vote_average <= 10) {
-        starImage = '평점: 💛💛💛💛🤍';
+        starImage = "평점: 💛💛💛💛🤍";
       }
     };
     showStarImage();
@@ -160,20 +159,16 @@ const makeMovieList = (data, query) => {
     }
     //평점 하트로 보여주기
 
-
-
-    let starImage = '평점: 🤍🤍🤍🤍🤍';
+    let starImage = "평점: 🤍🤍🤍🤍🤍";
     const showStarImage = () => {
       if (2 <= movie.vote_average && movie.vote_average < 4) {
-
-
-        starImage = '평점: 💛🤍🤍🤍🤍';
+        starImage = "평점: 💛🤍🤍🤍🤍";
       } else if (4 <= movie.vote_average && movie.vote_average < 6) {
-        starImage = '평점: 💛💛🤍🤍🤍';
+        starImage = "평점: 💛💛🤍🤍🤍";
       } else if (6 <= movie.vote_average && movie.vote_average < 8) {
-        starImage = '평점: 💛💛💛🤍🤍';
+        starImage = "평점: 💛💛💛🤍🤍";
       } else if (8 <= movie.vote_average && movie.vote_average <= 10) {
-        starImage = '평점: 💛💛💛💛🤍';
+        starImage = "평점: 💛💛💛💛🤍";
       }
     };
     showStarImage();
@@ -256,7 +251,7 @@ const renderSearchItem = (array) => {
 
   // 최근 검색어 삭제
   const searchDeleteBtn = document.querySelectorAll(".search-delete-btn");
-  searchButton.style.background = "transparent";
+  // searchButton.style.background = "transparent";
   const currentSearchItems = JSON.parse(localStorage.getItem("searchKeyword"));
 
   searchDeleteBtn.forEach((btn) => {
