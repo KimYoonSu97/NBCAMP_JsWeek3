@@ -90,7 +90,7 @@ const makeSlideMovieList = () => {
       </div>`;
   }
 
-  const slideImgHover = document.querySelectorAll(".slide-num");
+  const slideImgHover = document.querySelectorAll(".slide-img");
 
   MovieCardimgBtn(slideImgHover);
   likeFunction();

@@ -19,9 +19,7 @@ let tagLineP = tagLine.querySelector("p");
 let tagLineDiv = tagLine.querySelector("div");
 
 let moneyTable = document.querySelector(".money-table");
-// console.log(moneyTable);
 let moneyTableInfo = moneyTable.querySelectorAll(".info");
-// console.log(moneyTableInfo);
 let imageFlex1 = document.querySelector(".imageFlex1");
 let imageFlex2 = document.querySelector(".imageFlex2");
 let imageFlex3 = document.querySelector(".imageFlex3");
@@ -92,16 +90,13 @@ function movieDetail() {
   fetch(`https://api.themoviedb.org/3/movie/${id}/images?language=ko`, options)
     .then((item) => item.json())
     .then((item) => {
-      console.log(item);
       let imgAll = [...item.backdrops, ...item.logos, ...item.posters];
-      console.log(imgAll);
       if (item.posters.length === 0) {
         let gallerySection = document.querySelector(".gallery");
         gallerySection.remove();
       } else {
         imgAll.forEach((img, index) => {
           let { file_path: imgUrl } = img;
-          console.log(imgUrl);
           if (index === 0 || index % 3 === 0) {
             let temp_html_img = `<img src="https://image.tmdb.org/t/p/w500/${imgUrl}
           " alt="포스터" />`;
@@ -223,13 +218,11 @@ document.addEventListener("DOMContentLoaded", () => {
         const parsedReviews = JSON.parse(localStorage.getItem(id));
         const review = parsedReviews.find((r) => r.id === +dataId);
         // parsedReviews = [{comment: '처음에 적혀있던 리뷰'}, {}]
-        console.log("parsedReviews", parsedReviews);
         if (review.password === pw) {
           const deletedReviews = parsedReviews.filter(
             (item) => item.id !== review.id
           );
 
-          console.log("deletedReviews", deletedReviews);
           localStorage.setItem(id, JSON.stringify([...deletedReviews]));
 
           // dom 핸들링
@@ -255,7 +248,6 @@ document.addEventListener("DOMContentLoaded", () => {
         const parsedReviews = JSON.parse(localStorage.getItem(id));
         const review = parsedReviews.find((r) => r.id === +dataId);
         // parsedReviews = [{comment: '처음에 적혀있던 리뷰'}, {}]
-        console.log(review);
         if (review.password === pw) {
           const modifyReview = prompt(
             "수정할 내용을 입력하세요. 이름과 성별은 바꿀수 없습니다."
