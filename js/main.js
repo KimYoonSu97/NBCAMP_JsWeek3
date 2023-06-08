@@ -215,8 +215,12 @@ likeFunction();
 let query;
 searchButton.addEventListener("click", () => {
   query = searchInput.value;
-  showData(query);
-  addSearchItem(query);
+  if (query.length === 0) {
+    cardContainer.innerHTML = `검색어가 입력되지 않았습니다.`;
+  } else {
+    showData(query);
+    addSearchItem(query);
+  }
 });
 
 //인기순 정렬기능
