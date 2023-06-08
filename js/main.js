@@ -103,17 +103,16 @@ const makeSlideMovieList = () => {
     }
     //평점 하트로 보여주기
 
-    let starImage = '평점: 🤍🤍🤍🤍🤍';
+    let starImage = "평점: 🤍🤍🤍🤍🤍";
     const showStarImage = () => {
       if (2 <= movie.vote_average && movie.vote_average < 4) {
-
-        starImage = '평점: 💛🤍🤍🤍🤍';
+        starImage = "평점: 💛🤍🤍🤍🤍";
       } else if (4 <= movie.vote_average && movie.vote_average < 6) {
-        starImage = '평점: 💛💛🤍🤍🤍';
+        starImage = "평점: 💛💛🤍🤍🤍";
       } else if (6 <= movie.vote_average && movie.vote_average < 8) {
-        starImage = '평점: 💛💛💛🤍🤍';
+        starImage = "평점: 💛💛💛🤍🤍";
       } else if (8 <= movie.vote_average && movie.vote_average <= 10) {
-        starImage = '평점: 💛💛💛💛🤍';
+        starImage = "평점: 💛💛💛💛🤍";
       }
     };
     showStarImage();
@@ -160,20 +159,16 @@ const makeMovieList = (data, query) => {
     }
     //평점 하트로 보여주기
 
-
-
-    let starImage = '평점: 🤍🤍🤍🤍🤍';
+    let starImage = "평점: 🤍🤍🤍🤍🤍";
     const showStarImage = () => {
       if (2 <= movie.vote_average && movie.vote_average < 4) {
-
-
-        starImage = '평점: 💛🤍🤍🤍🤍';
+        starImage = "평점: 💛🤍🤍🤍🤍";
       } else if (4 <= movie.vote_average && movie.vote_average < 6) {
-        starImage = '평점: 💛💛🤍🤍🤍';
+        starImage = "평점: 💛💛🤍🤍🤍";
       } else if (6 <= movie.vote_average && movie.vote_average < 8) {
-        starImage = '평점: 💛💛💛🤍🤍';
+        starImage = "평점: 💛💛💛🤍🤍";
       } else if (8 <= movie.vote_average && movie.vote_average <= 10) {
-        starImage = '평점: 💛💛💛💛🤍';
+        starImage = "평점: 💛💛💛💛🤍";
       }
     };
     showStarImage();
@@ -224,6 +219,31 @@ searchButton.addEventListener("click", () => {
   addSearchItem(query);
 });
 
+//인기순 정렬기능
+popularityBtn.addEventListener("click", () => {
+  const sortedData = [...data].sort((a, b) => b.popularity - a.popularity);
+  cardContainer.innerHTML = "";
+  makeMovieList(sortedData);
+});
+// 평점순 정렬기능
+voteBtn.addEventListener("click", () => {
+  const sortedData = [...data].sort((a, b) => b.vote_average - a.vote_average);
+  cardContainer.innerHTML = "";
+  makeMovieList(sortedData);
+});
+//정렬 되돌리기
+originalBtn.addEventListener("click", () => {
+  cardContainer.innerHTML = "";
+  makeMovieList(data);
+});
+
+searchInput.addEventListener("keypress", (event) => {
+  if (event.key === "Enter") {
+    event.preventDefault();
+    searchButton.click();
+  }
+});
+
 // 최근 검색어 저장하기
 let searchedItems;
 const addSearchItem = (keyword) => {
@@ -249,7 +269,7 @@ const renderSearchItem = (array) => {
     // console.log(item.searchId);
     let tempHtml = `<div class="search-item-box" >
                     <span class="search-item">${item.searchItem}</span>
-                    <button class="search-delete-btn" id=${item.searchId}>🅧</button>
+                    <button class="search-delete-btn" id=${item.searchId}>𝗫</button>
                   </div>`;
     searchItemContainer.insertAdjacentHTML("beforeend", tempHtml);
   });
@@ -279,28 +299,3 @@ const renderSearchItem = (array) => {
 };
 
 renderSearchItem(JSON.parse(localStorage.getItem("searchKeyword")));
-
-searchInput.addEventListener("keypress", (event) => {
-  if (event.key === "Enter") {
-    event.preventDefault();
-    searchButton.click();
-  }
-});
-
-//인기순 정렬기능
-popularityBtn.addEventListener("click", () => {
-  const sortedData = [...data].sort((a, b) => b.popularity - a.popularity);
-  cardContainer.innerHTML = "";
-  makeMovieList(sortedData);
-});
-// 평점순 정렬기능
-voteBtn.addEventListener("click", () => {
-  const sortedData = [...data].sort((a, b) => b.vote_average - a.vote_average);
-  cardContainer.innerHTML = "";
-  makeMovieList(sortedData);
-});
-//정렬 되돌리기
-originalBtn.addEventListener("click", () => {
-  cardContainer.innerHTML = "";
-  makeMovieList(data);
-});
