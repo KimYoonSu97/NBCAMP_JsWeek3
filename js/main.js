@@ -24,7 +24,6 @@ const likeFunction = () => {
       likeNum.innerText = likeCount;
       let movieId = "like" + btn.getAttribute("data-id");
       let NewLikecount = likeCount;
-      // // let
       window.localStorage.setItem(movieId, JSON.stringify(NewLikecount));
     });
   });
