@@ -70,6 +70,23 @@ const makeSlideMovieList = () => {
     if (!viewLikeNum) {
       viewLikeNum = 0;
     }
+    //평점 하트로 보여주기
+    let starImage = '🤍🤍🤍🤍🤍';
+    const showStarImage = () => {
+
+      if (2 <= movie.vote_average && movie.vote_average < 4) {
+        starImage = '💛🤍🤍🤍🤍';
+      } else if (4 <= movie.vote_average && movie.vote_average < 6) {
+        starImage = '💛💛🤍🤍🤍';
+      } else if (6 <= movie.vote_average && movie.vote_average < 8) {
+        starImage = '💛💛💛🤍🤍';
+      } else if (8 <= movie.vote_average && movie.vote_average <= 10) {
+        starImage = '💛💛💛💛🤍';
+      }
+
+    };
+    showStarImage();
+
     const slideInner = document.querySelector(".slide-inner");
     slideInner.innerHTML += `<div data-id="${movie.id}" class="slide">
         <div class="slide-num">
@@ -84,6 +101,7 @@ const makeSlideMovieList = () => {
           </div>
           <div class="slide-info">
             <div class="title">${movie.title}</div>
+            <div class="card-star">${starImage}</div>
             <div class="rating">${movie.vote_average}</div>
           </div>
         </div>
@@ -111,6 +129,22 @@ const makeMovieList = (data, query) => {
     if (!viewLikeNum) {
       viewLikeNum = 0;
     }
+    //평점 하트로 보여주기
+    let starImage = '🤍🤍🤍🤍🤍';
+    const showStarImage = () => {
+
+      if (2 <= movie.vote_average && movie.vote_average < 4) {
+        starImage = '💛🤍🤍🤍🤍';
+      } else if (4 <= movie.vote_average && movie.vote_average < 6) {
+        starImage = '💛💛🤍🤍🤍';
+      } else if (6 <= movie.vote_average && movie.vote_average < 8) {
+        starImage = '💛💛💛🤍🤍';
+      } else if (8 <= movie.vote_average && movie.vote_average <= 10) {
+        starImage = '💛💛💛💛🤍';
+      }
+
+    };
+    showStarImage();
 
     const cardContainer = document.querySelector(".card-container");
     cardContainer.innerHTML += `<div data-id="${movie.id}" class="movie-card">
@@ -124,6 +158,7 @@ const makeMovieList = (data, query) => {
       />
       </div>
       <div class="card-title">${movie.title}</div>
+      <div class="card-star">${starImage}</div>
       <div class="card-rating">${movie.vote_average}</div>
     </div>`;
   });
