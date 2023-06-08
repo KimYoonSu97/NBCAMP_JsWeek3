@@ -13,12 +13,13 @@ const data = await getTopRatedMovies();
 let viewLikeNum;
 
 //좋아요기능 //웹에 바로반영됨
-const likeFunction = () => {
+
+const likeFunction = function () {
   let likeFunc = document.querySelectorAll(".like-btn");
 
   likeFunc.forEach((btn) => {
     let likeNum = btn.querySelector(".like-num");
-    // console.log(movieId);
+
     btn.addEventListener("click", function () {
       let movieId = "like" + btn.getAttribute("data-id");
       let likeCount = JSON.parse(localStorage.getItem(movieId));
@@ -29,33 +30,91 @@ const likeFunction = () => {
       let slideMovie = document.querySelectorAll(".slide");
       let cardMovie = document.querySelectorAll(".movie-card");
 
-      //하단 영화카드 좋아요 시 상단 슬라이드에 있다면 똑같이 적용해라.
-      if (btn.parentElement.getAttribute("class") === "slide-img") {
-        console.log("슬라이드를 눌렀습니다.");
-        for (let i = 0; i < cardMovie.length; i++) {
-          if (
-            cardMovie[i].getAttribute("data-id") === btn.getAttribute("data-id")
-          ) {
-            console.log("카드에도 적용했습니다.");
-            cardMovie[i].querySelector(".like-num").innerText = likeCount;
-          }
-        }
-      } else {
-        console.log("카드를 눌렀습니다.");
-        for (let i = 0; i < slideMovie.length; i++) {
-          if (
-            likeFunc[i].getAttribute("data-id") === btn.getAttribute("data-id")
-          ) {
-            console.log("슬라이드에도 적용했습니다.");
-            likeFunc[i].querySelector(".like-num").innerText = likeCount;
-          }
+      let NewLikecount = likeCount;
+      window.localStorage.setItem(movieId, JSON.stringify(NewLikecount));
+
+      for (let i = 0; i < slideMovie.length; i++) {
+        if (
+          slideMovie[i].getAttribute("data-id") === btn.getAttribute("data-id")
+        ) {
+          console.log("슬라이드에도 적용했습니다.");
+          slideMovie[i].querySelector(".like-num").innerText = likeCount;
         }
       }
+
+      //하단 영화카드 좋아요 시 상단 슬라이드에 있다면 똑같이 적용해라.
+      // if (btn.parentElement.getAttribute("class") === "slide-img") {
+      //   console.log("슬라이드를 눌렀습니다.");
+      //   likeCount++;
+      //   likeNum.innerText = likeCount;
+
+      // }
+    });
+  });
+};
+
+const likeFunctionSlide = function () {
+  let likeFunc = document.querySelectorAll(".like-btn-slide");
+
+  likeFunc.forEach((btn) => {
+    let likeNum = btn.querySelector(".like-num");
+
+    btn.addEventListener("click", function () {
+      let movieId = "like" + btn.getAttribute("data-id");
+      let likeCount = JSON.parse(localStorage.getItem(movieId));
+      console.log(likeCount);
+      likeCount++;
+      likeNum.innerText = likeCount;
+      console.log(btn.parentElement.getAttribute("class"));
+      let slideMovie = document.querySelectorAll(".slide");
+      let cardMovie = document.querySelectorAll(".movie-card");
 
       let NewLikecount = likeCount;
       window.localStorage.setItem(movieId, JSON.stringify(NewLikecount));
 
-      likeCount = JSON.parse(localStorage.getItem(movieId));
+      for (let i = 0; i < slideMovie.length; i++) {
+        if (
+          cardMovie[i].getAttribute("data-id") === btn.getAttribute("data-id")
+        ) {
+          console.log("슬라이드에도 적용했습니다.");
+          cardMovie[i].querySelector(".like-num").innerText = likeCount;
+        }
+      }
+
+      //하단 영화카드 좋아요 시 상단 슬라이드에 있다면 똑같이 적용해라.
+      // if (btn.parentElement.getAttribute("class") === "slide-img") {
+      //   console.log("슬라이드를 눌렀습니다.");
+      //   likeCount++;
+      //   likeNum.innerText = likeCount;
+
+      // }
+    });
+  });
+};
+
+//상단 카드 이미지 호버기능 함수
+const MovieSlideimgBtn = function (hoverArea) {
+  // 마우스 오버 이벤트
+  hoverArea.forEach((imgTag) => {
+    const goToDetail = imgTag.querySelector(".go-detail");
+    const viewBtn = imgTag.querySelector(".view-btn");
+    const likeBtn = imgTag.querySelector(".like-btn-slide");
+    imgTag.addEventListener("mouseover", (event) => {
+      likeBtn.style.display = "flex";
+      goToDetail.style.display = "flex";
+      viewBtn.style.display = "block";
+    });
+  });
+
+  // 마우스 아웃 이벤트
+  hoverArea.forEach((imgTag) => {
+    const goToDetail = imgTag.querySelector(".go-detail");
+    const viewBtn = imgTag.querySelector(".view-btn");
+    const likeBtn = imgTag.querySelector(".like-btn-slide");
+    imgTag.addEventListener("mouseout", (event) => {
+      likeBtn.style.display = "none";
+      goToDetail.style.display = "none";
+      viewBtn.style.display = "none";
     });
   });
 };
@@ -92,8 +151,7 @@ const MovieCardimgBtn = function (hoverArea) {
 const makeSlideMovieList = () => {
   const sortedData = [...data].sort((a, b) => b.vote_average - a.vote_average); // 평점순으로 보여주기
 
-  for (let i = 0; i < 3; i++) {
-    let movie = sortedData[i];
+  sortedData.forEach((movie, i) => {
     let movieId = "like" + movie.id;
     let loadLike = JSON.parse(localStorage.getItem(movieId));
 
@@ -119,27 +177,31 @@ const makeSlideMovieList = () => {
 
     const slideInner = document.querySelector(".slide-inner");
     slideInner.innerHTML += `<div data-id="${movie.id}" class="slide">
-        <div class="slide-num">
-          <div class="slide-img">
-          <div class="view-btn"></div>
-          <div class="like-btn" data-id="${movie.id}" ><p>좋아요</p> <p class="like-num">${viewLikeNum}</p></div>
-          <div class="go-detail" data-id="${movie.id}"><p> 상세정보보기</p> </div>
-            <img
-              src="https://image.tmdb.org/t/p/w500/${movie.poster_path}"
-              alt="name poster"
-            />
+          <div class="slide-num">
+            <div class="slide-img">
+            <div class="view-btn"></div>
+            <div class="like-btn-slide" data-id="${
+              movie.id
+            }" ><p>좋아요</p> <p class="like-num">${viewLikeNum}</p></div>
+            <div class="go-detail" data-id="${
+              movie.id
+            }"><p> 상세정보보기</p> </div>
+              <img
+                src="https://image.tmdb.org/t/p/w500/${movie.poster_path}"
+                alt="name poster"
+              />
+            </div>
+            <div class="slide-info">
+            <div class="rank"><p class="numb">${i + 1}</p></div>
+              <div class="title">${movie.title}</div>
+            
+            </div>
           </div>
-          <div class="slide-info">
-            <div class="title">${movie.title}</div>
-            <div class="rating">${starImage}</div>
-          </div>
-        </div>
-      </div>`;
-  }
-
+        </div>`;
+  });
   const slideImgHover = document.querySelectorAll(".slide-img");
 
-  MovieCardimgBtn(slideImgHover);
+  MovieSlideimgBtn(slideImgHover);
   slide();
 };
 
@@ -192,6 +254,7 @@ const makeMovieList = (data, query) => {
   const BottomimgHover = document.querySelectorAll(".card-poster");
 
   MovieCardimgBtn(BottomimgHover);
+  likeFunction();
   toDetail();
 };
 
@@ -208,7 +271,8 @@ const showData = (query) => {
 // entrypoint
 makeSlideMovieList(data);
 makeMovieList(data);
-likeFunction();
+// likeFunction();
+likeFunctionSlide();
 
 // event listener
 //검색기능
