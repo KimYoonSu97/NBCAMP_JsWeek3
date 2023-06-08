@@ -253,7 +253,6 @@ searchInput.addEventListener("keypress", (event) => {
 // 최근 검색어 저장하기
 const addSearchItem = (keyword) => {
   const searchedItemFromDb = JSON.parse(localStorage.getItem("searchKeyword"));
-<<<<<<< Updated upstream
   const searchItemId = searchedItemFromDb?.[0]?.searchId + 1 || 1;
   const newsearchedItems = { searchItem: keyword, searchId: searchItemId };
 
@@ -271,15 +270,6 @@ const addSearchItem = (keyword) => {
   if (searchedItems.length >= 6) {
     searchedItems.splice(5, 1);
   }
-=======
-  const searchItemId =
-    searchedItemFromDb?.[searchedItemFromDb.length - 1]?.searchId + 1 || 1;
-  const newSearchedItems = { searchItem: keyword, searchId: searchItemId };
-
-  searchedItems = searchedItemFromDb
-    ? [...searchedItemFromDb, newSearchedItems]
-    : [newSearchedItems];
->>>>>>> Stashed changes
   window.localStorage.setItem("searchKeyword", JSON.stringify(searchedItems));
   renderSearchItem(searchedItems);
 };
