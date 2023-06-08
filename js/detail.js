@@ -58,9 +58,9 @@ const movieDetail = () => {
 
       let movieInfoVal = [popularity + " 점", release_date, productionName];
       let moneyInfoVal = [
-        budget + " 원",
+        budget + " 달러",
         rating + " 점",
-        revenue + " 원",
+        revenue + " 달러",
         vote + " 개",
       ];
 
