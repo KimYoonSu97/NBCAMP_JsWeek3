@@ -2,7 +2,6 @@
   box-sizing: border-box;
   font-family: "sofia-pro", sans-serif;
   font-weight: 400;
-  /* background-color: black; */
   color: white;
   word-wrap: break-word;
   word-break: keep-all;
@@ -21,27 +20,15 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  /* -webkit-text-stroke: 2px black; */
   background-image: linear-gradient(0deg, black, #5a5a5a);
   background-repeat: no-repeat;
 }
 
 .header .logo-box {
-  /* width: 270px; */
   height: 80px;
   margin-top: 20px;
-  /* background-color: royalblue; */
-  /* display: flex; */
-  /* justify-content: center; */
-  /* align-items: center; */
   font-size: 100px;
   font-weight: 700;
-}
-.header .logo-box .text {
-  /* color: black; */
-}
-
-.header .logo-box {
 }
 
 .top-text {
@@ -51,13 +38,7 @@ body {
   margin: 40px 0 50px 0;
 }
 
-/* 슬라이더 부분 */
-/* .slider-section {
-  overflow: hidden;
-} */
-
 #slider {
-  /* height: 768px; */
   width: 453px;
   margin: 0 auto;
   overflow: hidden;
@@ -66,7 +47,6 @@ body {
 .slide-inner {
   display: flex;
   transition: 1s ease-in-out;
-  /* height: 100%; */
   justify-content: center;
 }
 
@@ -80,7 +60,6 @@ body {
 
 .slide-num {
   margin: 0 auto;
-  /* padding: 30px; */
 }
 
 .slide-num .slide-img {
@@ -93,28 +72,6 @@ body {
   position: relative;
 }
 
-/* .slide-img::before {
-  content: "상세 정보 보기";
-  color: black;
-  font-size: 30px;
-  position: absolute;
-  height: 100%;
-  width: 100%;
-  background-color: gray;
-  top: 0;
-  left: 100%;
-  transition: all 0.3s;
-  opacity: 0.5;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  -webkit-text-stroke: 2px black;
-  background-image: linear-gradient(0deg, black, #f9f7f1);
-  background-repeat: no-repeat;
-}
-.slide-img:hover::before {
-  transform: translateX(-100%);
-} */
 .slide-img img {
   width: 100%;
   height: 100%;
@@ -153,12 +110,6 @@ body {
 .rank .numb {
   filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.4));
 }
-/* .rank .top {
-  position: absolute;
-  background: transparent;
-  /* top: -px; */
-
-/* slide btn */
 
 .button-list {
   position: relative;
@@ -168,7 +119,6 @@ body {
   width: 100px;
   height: 100px;
   position: absolute;
-  /* padding: 50px; */
   color: white;
   font-size: 30px;
   line-height: 1;
@@ -184,7 +134,6 @@ body {
   width: 100px;
   height: 100px;
   position: absolute;
-  /* padding: 50px; */
   font-size: 30px;
   color: white;
   border: 2px solid white;
@@ -291,29 +240,6 @@ section.inner {
   /* cursor: pointer; */
   position: relative;
 }
-
-/* .card-poster::before {
-  content: "상세 정보 보기";
-  color: black;
-  font-size: 20px;
-  position: absolute;
-  height: 100%;
-  width: 100%;
-  background-color: gray;
-  top: 0;
-  left: 100%;
-  transition: all 0.3s;
-  opacity: 0.5;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  -webkit-text-stroke: 2px black;
-  background-image: linear-gradient(0deg, black, #f9f7f1);
-  background-repeat: no-repeat;
-}
-.card-poster:hover::before {
-  transform: translateX(-100%); */
-/* } */
 
 .view-btn {
   width: 100%;
