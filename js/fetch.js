@@ -5,7 +5,7 @@ export const getTopRatedMovies = async () => {
     headers: {
       accept: "application/json",
       Authorization:
-        "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJlMGFmODc2MmE0MzI2MjMxOGQyMDI0MjM3ZjY3NjU5NiIsInN1YiI6IjY0NzQ4MjUwZGQ3MzFiMmQ3Y2Q3YTQzMyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.jYVhzGxBgqcGZbhWKQZFfY2XNHHsuW0whPKDt_b22Pc",
+        "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI3M2YwOWE4NzFkZmY5YjJkNzgwMjIwOGY1YzgxMDkxZiIsInN1YiI6IjY0NzE0YmQ0ODgxM2U0MDEwMzU2YjRiMSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.DfdXv7fFFGCxyzVDB3-VdRy1oXg3YTx8ql95PuZnMtE",
     },
   };
   try {
